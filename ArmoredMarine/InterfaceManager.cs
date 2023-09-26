@@ -16,45 +16,65 @@ namespace ArmoredMarine
             MarineStats Stats = new MarineStats();
             Console.WriteLine($"Build Your Marine! You have a maximum of {AvailablePoints} stat points to use. Spend them wisely:");
 
-            bool AssignStat(string Stat, int Points)
+            bool AssignStat(string Stat, string Points)
             {
-                if (HelperFunctions.InputChecker(Stat, Points) == false) 
+                var canParse = Int32.TryParse(Points, out var usedPoints);
                 {
-                    Console.WriteLine("Input a correct value you moron!");
-                    Stat = Console.ReadLine();
-                    AssignStat(Stat, Points);
-                }
+                    if (!canParse || String.IsNullOrEmpty(Stat))
+                    {
+                        Console.WriteLine("Input a correct value you moron!");
+                        Stat = Console.ReadLine();
 
-                int i = Convert.ToInt32( Stat );
-                Points -= i;
-                Stats.Add(i);
-                Console.WriteLine($"You have {Points} left");
-                AvailablePoints = Points;
+                    }
+                }
+                
+
+                switch (Stat)
+                {
+                    case "Strength":
+                        Stats.Strength = usedPoints;
+                        break;
+                    case "Agility":
+                        Stats.Agility = usedPoints;
+                        break;
+                    case "Resilience":
+                        Stats.Resilience = usedPoints;
+                        break;
+                    case "Perception":
+                        Stats.Perception = usedPoints;
+                        break;
+
+                    default:
+                        break;
+                }
+                AvailablePoints -= usedPoints;
+                Console.WriteLine($"You have {AvailablePoints} left");
                 return true;
             }
 
             Console.WriteLine("Strength: ");
             string AssignStrength = Console.ReadLine();
-            AssignStat(AssignStrength, AvailablePoints);
+            AssignStat("Strength", AssignStrength);
 
             Console.WriteLine("Agility: ");
             string AssignAgility = Console.ReadLine();
-            AssignStat(AssignAgility, AvailablePoints);
+            AssignStat("Agility", AssignAgility);
 
             Console.WriteLine("Resilience: ");
             string AssignResilience = Console.ReadLine();
-            AssignStat(AssignResilience, AvailablePoints);
+            AssignStat("Resilience", AssignResilience);
 
             Console.WriteLine("Perception: ");
             string AssignPerception = Console.ReadLine();
-            AssignStat(AssignPerception, AvailablePoints);
+            AssignStat("Perception", AssignPerception);
 
             return Stats;
         }
 
         public bool BattleInstance(PlayerMarine player)
         {
-            var randomMarineStats = HelperFunctions.RandomStats();
+            var randomMarineStats = HelperFunctions.PopulateArrayBelow30PointsTotal();
+
             var marine = new MarineStats()
             {
                 Strength = randomMarineStats[0],
@@ -77,7 +97,7 @@ namespace ArmoredMarine
             Action = Action.ToLower();
             if (Action == "fire")
             {
-                player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer.Health);
+                player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer.MarineStats.Health);
    
             }
 

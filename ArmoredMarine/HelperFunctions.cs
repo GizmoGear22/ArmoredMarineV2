@@ -61,6 +61,18 @@ namespace ArmoredMarine
             return stats;
         }
 
+        public static int[] PopulateArrayBelow30PointsTotal()
+        {
+            var points = 30;
+            var result = new int[4];
+            for (int i = 0; i<result.Length; i++)
+            {
+                result[i] = RandomNumber(points);
+                points -= result[i];
+            }
+            return result;
+        }
+
         public static bool GoFirst()
         {
             Random random = new Random();
