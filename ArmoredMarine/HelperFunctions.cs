@@ -13,8 +13,8 @@ namespace ArmoredMarine
     {
         public static bool InputChecker(string SmallInput, int LargeInput)
         {
-            bool checkInput = int.TryParse(SmallInput, out _);
-            int IntInput;
+            bool checkInput = int.TryParse(SmallInput, out var IntInput);
+            
             if (!checkInput)
             {
                 return false;

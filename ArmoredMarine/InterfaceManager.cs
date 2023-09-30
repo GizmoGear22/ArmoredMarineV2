@@ -27,7 +27,6 @@ namespace ArmoredMarine
 
                     }
                 }
-                
 
                 switch (Stat)
                 {
@@ -54,7 +53,7 @@ namespace ArmoredMarine
 
             Console.WriteLine("Strength: ");
             string AssignStrength = Console.ReadLine();
-            AssignStat("Strength", AssignStrength);
+            AssignStat("strength", AssignStrength);
 
             Console.WriteLine("Agility: ");
             string AssignAgility = Console.ReadLine();
