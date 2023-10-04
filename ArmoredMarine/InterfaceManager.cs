@@ -9,8 +9,6 @@ namespace ArmoredMarine
 {
     public class InterfaceManager
     {
-
-        
         public void CharStatScreen(PlayerMarine HumanPlayer)
         {   
             int AvailablePoints = 30;
@@ -77,9 +75,8 @@ namespace ArmoredMarine
 
         }
 
-        public bool BattleInstance(PlayerMarine player)
+        public void BattleInstance(PlayerMarine player)
         {
-            //var randomMarineStats = HelperFunctions.PopulateArrayBelow30PointsTotal();
             var computerPlayer = new ComputerMarine();
             var ComputerStatArray = HelperFunctions.RandomStats();
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Strength, ComputerStatArray);
@@ -93,19 +90,43 @@ namespace ArmoredMarine
             int Range = fieldManager.DistanceBetween();
             double PercentRange = HelperFunctions.RangeToAimAdjustment(Range);
 
-            Console.WriteLine("What will you do?");
-            Console.WriteLine("Type in the action you with from the list of options:");
-            Console.WriteLine("Fire");
-            string Action = Console.ReadLine(); 
-            Action = Action.ToLower();
-            if (Action == "fire")
+            FirePhase();
+
+            void FirePhase()
             {
-                player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer.MarineStats.Health);
-   
+                if (computerPlayer.Health > 0)
+                {
+                    Console.WriteLine("What will you do?");
+                    Console.WriteLine("Type in the action you with from the list of options:");
+                    Console.WriteLine("Fire");
+                    string Action = Console.ReadLine();
+                    Action = Action.ToLower();
+                    if (Action == "fire")
+                    {
+                        player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer.Health, player.Perception);
+                    }
+                }
+                if (player.Health > 0)
+                {
+                    Console.WriteLine("Computer Acts");
+                    Console.WriteLine("Computer fires!");
+                    computerPlayer.DealRangedDamage(computerPlayer.MainWeapon, PercentRange, player.Health, computerPlayer.Perception);
+                    Console.WriteLine($"You have {player.Health} health left.");
+                }
+
+                if (computerPlayer.Health > 0 && player.Health > 0) 
+                {
+                    FirePhase();
+                } else if (computerPlayer.Health <= 0)
+                {
+                    Console.WriteLine("Player Wins!");
+                } else if (player.Health <= 0) 
+                {
+                    Console.WriteLine("Computer Wins!");
+                }
             }
 
 
-            return true;
         }
 
 

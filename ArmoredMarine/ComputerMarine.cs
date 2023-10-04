@@ -14,6 +14,7 @@ namespace ArmoredMarine
             Agility = 1;
             Resilience = 1;
             Perception = 1;
+            Health = 100;
             
         }
         public void AssignIndividualComputerStats(MainStats stat, int[] StatsArray)

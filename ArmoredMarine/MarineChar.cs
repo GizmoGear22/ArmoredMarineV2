@@ -22,15 +22,10 @@ namespace ArmoredMarine
         public double Movement { get; set; }
         public double Weight { get; set; }
         public int MaxPoints { get; set; }
-        public MarineStats MarineStats { get; set; }
         public int Credits { get; set; }
         public Weapons MainWeapon { get; set; }
         public Weapons SideWeapon { get; set; }
         public Weapons MeleeWeapon { get; set; }
-
-        
-
-        
 
 
         public Dictionary<string, int> ArmorPoints = new Dictionary<string, int>
@@ -46,6 +41,8 @@ namespace ArmoredMarine
 
             };
 
+        
+
         public enum MainStats
         {
             Strength,
@@ -54,23 +51,23 @@ namespace ArmoredMarine
             Perception
         }
 
+        public void InsertMainWeapon()
+        {
+            MainWeapon = new Weapons.BoltRifle();
+        }
+
         public double RangedAccuracyCalc(int Perception, double Range, double Weapon = 1, double Upgrade = 1)
         {
             double PerceptionBonus = Perception * 0.2;
             double Aim = PerceptionBonus * Weapon * Upgrade * Range;
             return Aim;
-
         }
-        public void InsertMainWeapon()
-        {
-            MainWeapon = new Weapons.BoltRifle();
-        }
-        public void DealRangedDamage(Weapons Weapon, double range, int CompHealth)
+        public void DealRangedDamage(Weapons Weapon, double range, int opponentHealth, int Perception)
         {
             bool[]ShotSuccess = new bool[Weapon.ShotsPerRound];
             for (int i = 0; i < Weapon.ShotsPerRound; i++)
             {
-                double ShotChance = RangedAccuracyCalc(MarineStats.Perception, range, MainWeapon.Accuracy)*100;
+                double ShotChance = RangedAccuracyCalc(Perception, range, MainWeapon.Accuracy)*100;
                 
                 double RandomizedNumber = HelperFunctions.RandomNumber(100);
                 if (RandomizedNumber > 0 && RandomizedNumber < ShotChance)
@@ -86,9 +83,9 @@ namespace ArmoredMarine
             {
                 if (item == true)
                 {
-                    CompHealth -= Weapon.Damage;
+                    opponentHealth -= Weapon.Damage;
                     Console.WriteLine($"Dealt {Weapon.Damage} damage");
-                } else { Console.WriteLine("You missed!"); }
+                } else { Console.WriteLine("Missed!"); }
             }
 
         }
