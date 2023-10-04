@@ -77,7 +77,7 @@ namespace ArmoredMarine
 
         public void BattleInstance(PlayerMarine player)
         {
-            var computerPlayer = new ComputerMarine();
+            ComputerMarine computerPlayer = new ComputerMarine();
             var ComputerStatArray = HelperFunctions.RandomStats();
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Strength, ComputerStatArray);
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Agility, ComputerStatArray);
@@ -103,14 +103,14 @@ namespace ArmoredMarine
                     Action = Action.ToLower();
                     if (Action == "fire")
                     {
-                        player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer.Health, player.Perception);
+                        player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer, player);
                     }
                 }
                 if (player.Health > 0)
                 {
                     Console.WriteLine("Computer Acts");
                     Console.WriteLine("Computer fires!");
-                    computerPlayer.DealRangedDamage(computerPlayer.MainWeapon, PercentRange, player.Health, computerPlayer.Perception);
+                    computerPlayer.DealRangedDamage(computerPlayer.MainWeapon, PercentRange, player, computerPlayer);
                     Console.WriteLine($"You have {player.Health} health left.");
                 }
 

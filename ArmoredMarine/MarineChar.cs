@@ -56,22 +56,27 @@ namespace ArmoredMarine
             MainWeapon = new Weapons.BoltRifle();
         }
 
+        public void ReduceHealth(int damage)
+        {
+            this.Health -= damage;
+        }
+
         public double RangedAccuracyCalc(int Perception, double Range, double Weapon = 1, double Upgrade = 1)
         {
             double PerceptionBonus = Perception * 0.2;
             double Aim = PerceptionBonus * Weapon * Upgrade * Range;
             return Aim;
         }
-        public void DealRangedDamage(Weapons Weapon, double range, int opponentHealth, int Perception)
+        public void DealRangedDamage(Weapons Weapon, double range, MarineChar defender, MarineChar attacker)
         {
             bool[]ShotSuccess = new bool[Weapon.ShotsPerRound];
             for (int i = 0; i < Weapon.ShotsPerRound; i++)
             {
-                double ShotChance = RangedAccuracyCalc(Perception, range, MainWeapon.Accuracy)*100;
+                double ShotChance = RangedAccuracyCalc(attacker.Perception, range, attacker.MainWeapon.Accuracy)*100;
                 
                 double RandomizedNumber = HelperFunctions.RandomNumber(100);
                 if (RandomizedNumber > 0 && RandomizedNumber < ShotChance)
-                {
+                { 
                     ShotSuccess[i] = true;
                 } else
                 {
@@ -83,7 +88,7 @@ namespace ArmoredMarine
             {
                 if (item == true)
                 {
-                    opponentHealth -= Weapon.Damage;
+                    defender.ReduceHealth(Weapon.Damage);
                     Console.WriteLine($"Dealt {Weapon.Damage} damage");
                 } else { Console.WriteLine("Missed!"); }
             }
