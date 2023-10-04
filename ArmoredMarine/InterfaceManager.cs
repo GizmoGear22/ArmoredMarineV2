@@ -9,80 +9,124 @@ namespace ArmoredMarine
 {
     public class InterfaceManager
     {
-        
-        public MarineStats CharStatScreen()
+        public void CharStatScreen(PlayerMarine HumanPlayer)
         {   
             int AvailablePoints = 30;
-            MarineStats Stats = new MarineStats();
+            //MarineStats Stats = new MarineStats();
             Console.WriteLine($"Build Your Marine! You have a maximum of {AvailablePoints} stat points to use. Spend them wisely:");
 
-            bool AssignStat(string Stat, int Points)
+            int StatCheck(string userAssignedValue, int pointsAvailable)
             {
-                if (HelperFunctions.InputChecker(Stat, Points) == false) 
+                if (Int32.TryParse(userAssignedValue, out var StatPoints) && StatPoints > 0 && pointsAvailable >= 0 && StatPoints <= pointsAvailable)
                 {
-                    Console.WriteLine("Input a correct value you moron!");
-                    Stat = Console.ReadLine();
-                    AssignStat(Stat, Points);
+                    return StatPoints;
                 }
 
-                int i = Convert.ToInt32( Stat );
-                Points -= i;
-                Stats.Add(i);
-                Console.WriteLine($"You have {Points} left");
-                AvailablePoints = Points;
-                return true;
+                Console.WriteLine("Put in a proper value you moron!");
+                var newValue = Console.ReadLine() ?? "";
+                return StatCheck(newValue, pointsAvailable);
+            }
+
+            void AssignStat(PlayerMarine.MainStats Stat, string Points)
+            {
+                var UserInputValue = StatCheck(Points, AvailablePoints);
+
+                switch (Stat)
+                {
+                    case MarineChar.MainStats.Strength:
+                         HumanPlayer.Strength += UserInputValue;
+                        break;
+                    case MarineChar.MainStats.Agility:
+                        HumanPlayer.Agility += UserInputValue;
+                        break;
+                    case MarineChar.MainStats.Resilience:
+                        HumanPlayer.Resilience += UserInputValue;
+                        break;
+                    case MarineChar.MainStats.Perception:
+                        HumanPlayer.Perception += UserInputValue;
+                        break;
+
+                    default:
+                        break;
+                }
+                
+                AvailablePoints -= UserInputValue;
+                Console.WriteLine($"You have {AvailablePoints} left");
             }
 
             Console.WriteLine("Strength: ");
             string AssignStrength = Console.ReadLine();
-            AssignStat(AssignStrength, AvailablePoints);
+            AssignStat(MarineChar.MainStats.Strength, AssignStrength);
+
 
             Console.WriteLine("Agility: ");
             string AssignAgility = Console.ReadLine();
-            AssignStat(AssignAgility, AvailablePoints);
+            AssignStat(MarineChar.MainStats.Agility, AssignAgility);
+
 
             Console.WriteLine("Resilience: ");
             string AssignResilience = Console.ReadLine();
-            AssignStat(AssignResilience, AvailablePoints);
+            AssignStat(MarineChar.MainStats.Resilience, AssignResilience);
+
 
             Console.WriteLine("Perception: ");
             string AssignPerception = Console.ReadLine();
-            AssignStat(AssignPerception, AvailablePoints);
+            AssignStat(MarineChar.MainStats.Perception, AssignPerception);
 
-            return Stats;
         }
 
-        public bool BattleInstance(PlayerMarine player)
+        public void BattleInstance(PlayerMarine player)
         {
-            var randomMarineStats = HelperFunctions.RandomStats();
-            var marine = new MarineStats()
-            {
-                Strength = randomMarineStats[0],
-                Agility = randomMarineStats[1],
-                Resilience = randomMarineStats[2],
-                Perception = randomMarineStats[3]
+            ComputerMarine computerPlayer = new ComputerMarine();
+            var ComputerStatArray = HelperFunctions.RandomStats();
+            computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Strength, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Agility, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Resilience, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Perception, ComputerStatArray);
 
-            };
-            ComputerMarine computerPlayer = new ComputerMarine(marine);
             computerPlayer.InsertMainWeapon();
 
             FieldManager fieldManager = new FieldManager(50, 50);
             int Range = fieldManager.DistanceBetween();
             double PercentRange = HelperFunctions.RangeToAimAdjustment(Range);
 
-            Console.WriteLine("What will you do?");
-            Console.WriteLine("Type in the action you with from the list of options:");
-            Console.WriteLine("Fire");
-            string Action = Console.ReadLine(); 
-            Action = Action.ToLower();
-            if (Action == "fire")
+            FirePhase();
+
+            void FirePhase()
             {
-                player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer.Health);
-   
+                if (computerPlayer.Health > 0)
+                {
+                    Console.WriteLine("What will you do?");
+                    Console.WriteLine("Type in the action you with from the list of options:");
+                    Console.WriteLine("Fire");
+                    string Action = Console.ReadLine();
+                    Action = Action.ToLower();
+                    if (Action == "fire")
+                    {
+                        player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer, player);
+                    }
+                }
+                if (player.Health > 0)
+                {
+                    Console.WriteLine("Computer Acts");
+                    Console.WriteLine("Computer fires!");
+                    computerPlayer.DealRangedDamage(computerPlayer.MainWeapon, PercentRange, player, computerPlayer);
+                    Console.WriteLine($"You have {player.Health} health left.");
+                }
+
+                if (computerPlayer.Health > 0 && player.Health > 0) 
+                {
+                    FirePhase();
+                } else if (computerPlayer.Health <= 0)
+                {
+                    Console.WriteLine("Player Wins!");
+                } else if (player.Health <= 0) 
+                {
+                    Console.WriteLine("Computer Wins!");
+                }
             }
 
 
-            return true;
         }
 
 
