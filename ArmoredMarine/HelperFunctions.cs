@@ -18,7 +18,7 @@ namespace ArmoredMarine
             return GeneratedNumber;
         }
 
-        static void Shuffle<T>(T[] array)
+        static void Shuffle<T>(T[] array) //Pulled as Fisher-Yates Shuffle Algorithm. I'll figure out how it works later =/
         {
             Random _random = new Random();
             int n = array.Length;

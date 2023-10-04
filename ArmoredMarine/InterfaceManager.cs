@@ -75,15 +75,18 @@ namespace ArmoredMarine
             string AssignPerception = Console.ReadLine();
             AssignStat(MarineChar.MainStats.Perception, AssignPerception);
 
-
         }
 
         public bool BattleInstance(PlayerMarine player)
         {
             //var randomMarineStats = HelperFunctions.PopulateArrayBelow30PointsTotal();
             var computerPlayer = new ComputerMarine();
-            
-            
+            var ComputerStatArray = HelperFunctions.RandomStats();
+            computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Strength, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Agility, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Resilience, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Perception, ComputerStatArray);
+
             computerPlayer.InsertMainWeapon();
 
             FieldManager fieldManager = new FieldManager(50, 50);
