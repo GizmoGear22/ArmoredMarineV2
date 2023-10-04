@@ -19,7 +19,7 @@ namespace ArmoredMarine
 
             int StatCheck(string userAssignedValue, int pointsAvailable)
             {
-                if (Int32.TryParse(userAssignedValue, out var StatPoints) && StatPoints > 0)
+                if (Int32.TryParse(userAssignedValue, out var StatPoints) && StatPoints > 0 && pointsAvailable >= 0 && StatPoints <= pointsAvailable)
                 {
                     return StatPoints;
                 }
