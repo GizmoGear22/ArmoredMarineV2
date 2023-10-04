@@ -9,80 +9,81 @@ namespace ArmoredMarine
 {
     public class InterfaceManager
     {
+
         
-        public MarineStats CharStatScreen()
+        public void CharStatScreen(PlayerMarine HumanPlayer)
         {   
             int AvailablePoints = 30;
-            MarineStats Stats = new MarineStats();
+            //MarineStats Stats = new MarineStats();
             Console.WriteLine($"Build Your Marine! You have a maximum of {AvailablePoints} stat points to use. Spend them wisely:");
 
-            bool AssignStat(string Stat, string Points)
+            int StatCheck(string userAssignedValue, int pointsAvailable)
             {
-                var canParse = Int32.TryParse(Points, out var usedPoints);
+                if (Int32.TryParse(userAssignedValue, out var StatPoints) && StatPoints > 0)
                 {
-                    if (!canParse || String.IsNullOrEmpty(Stat))
-                    {
-                        Console.WriteLine("Input a correct value you moron!");
-                        Stat = Console.ReadLine();
-
-                    }
+                    return StatPoints;
                 }
+
+                Console.WriteLine("Put in a proper value you moron!");
+                var newValue = Console.ReadLine() ?? "";
+                return StatCheck(newValue, pointsAvailable);
+            }
+
+            void AssignStat(PlayerMarine.MainStats Stat, string Points)
+            {
+                var UserInputValue = StatCheck(Points, AvailablePoints);
 
                 switch (Stat)
                 {
-                    case "Strength":
-                        Stats.Strength = usedPoints;
+                    case MarineChar.MainStats.Strength:
+                         HumanPlayer.Strength += UserInputValue;
                         break;
-                    case "Agility":
-                        Stats.Agility = usedPoints;
+                    case MarineChar.MainStats.Agility:
+                        HumanPlayer.Agility += UserInputValue;
                         break;
-                    case "Resilience":
-                        Stats.Resilience = usedPoints;
+                    case MarineChar.MainStats.Resilience:
+                        HumanPlayer.Resilience += UserInputValue;
                         break;
-                    case "Perception":
-                        Stats.Perception = usedPoints;
+                    case MarineChar.MainStats.Perception:
+                        HumanPlayer.Perception += UserInputValue;
                         break;
 
                     default:
                         break;
                 }
-                AvailablePoints -= usedPoints;
+                
+                AvailablePoints -= UserInputValue;
                 Console.WriteLine($"You have {AvailablePoints} left");
-                return true;
             }
 
             Console.WriteLine("Strength: ");
             string AssignStrength = Console.ReadLine();
-            AssignStat("strength", AssignStrength);
+            AssignStat(MarineChar.MainStats.Strength, AssignStrength);
+
 
             Console.WriteLine("Agility: ");
             string AssignAgility = Console.ReadLine();
-            AssignStat("Agility", AssignAgility);
+            AssignStat(MarineChar.MainStats.Agility, AssignAgility);
+
 
             Console.WriteLine("Resilience: ");
             string AssignResilience = Console.ReadLine();
-            AssignStat("Resilience", AssignResilience);
+            AssignStat(MarineChar.MainStats.Resilience, AssignResilience);
+
 
             Console.WriteLine("Perception: ");
             string AssignPerception = Console.ReadLine();
-            AssignStat("Perception", AssignPerception);
+            AssignStat(MarineChar.MainStats.Perception, AssignPerception);
 
-            return Stats;
+
         }
 
         public bool BattleInstance(PlayerMarine player)
         {
-            var randomMarineStats = HelperFunctions.PopulateArrayBelow30PointsTotal();
-
-            var marine = new MarineStats()
-            {
-                Strength = randomMarineStats[0],
-                Agility = randomMarineStats[1],
-                Resilience = randomMarineStats[2],
-                Perception = randomMarineStats[3]
-
-            };
-            ComputerMarine computerPlayer = new ComputerMarine(marine);
+            //var randomMarineStats = HelperFunctions.PopulateArrayBelow30PointsTotal();
+            var computerPlayer = new ComputerMarine();
+            
+            
             computerPlayer.InsertMainWeapon();
 
             FieldManager fieldManager = new FieldManager(50, 50);

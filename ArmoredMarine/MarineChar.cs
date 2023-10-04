@@ -13,12 +13,22 @@ namespace ArmoredMarine
 {
     public class MarineChar : IMarine
     {
-
+        public int Health { get; set; }
+        public int MaxHealth { get; set; }
+        public int Strength { get; set; }
+        public int Agility { get; set; }
+        public int Resilience { get; set; }
+        public int Perception { get; set; }
+        public double Movement { get; set; }
+        public double Weight { get; set; }
+        public int MaxPoints { get; set; }
         public MarineStats MarineStats { get; set; }
         public int Credits { get; set; }
         public Weapons MainWeapon { get; set; }
         public Weapons SideWeapon { get; set; }
         public Weapons MeleeWeapon { get; set; }
+
+        
 
         
 
@@ -35,6 +45,14 @@ namespace ArmoredMarine
                 {"RightLeg", 100 }
 
             };
+
+        public enum MainStats
+        {
+            Strength,
+            Agility,
+            Resilience,
+            Perception
+        }
 
         public double RangedAccuracyCalc(int Perception, double Range, double Weapon = 1, double Upgrade = 1)
         {

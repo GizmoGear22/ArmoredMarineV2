@@ -8,9 +8,12 @@ namespace ArmoredMarine
 {
     public class PlayerMarine : MarineChar
     {
-        public PlayerMarine(MarineStats stats)
+        public PlayerMarine()
         {
-            MarineStats = stats;
+            Strength = 1;
+            Agility = 1;
+            Resilience = 1;
+            Perception = 1;
             
         }
 

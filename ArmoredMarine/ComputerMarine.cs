@@ -8,9 +8,9 @@ namespace ArmoredMarine
 {
     public class ComputerMarine : MarineChar
     {
-        public ComputerMarine(MarineStats stats)
+        public ComputerMarine()
         {
-            MarineStats = stats;
+            
         }
 
 

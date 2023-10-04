@@ -11,66 +11,42 @@ namespace ArmoredMarine
 {
     public class HelperFunctions
     {
-        public static bool InputChecker(string SmallInput, int LargeInput)
-        {
-            bool checkInput = int.TryParse(SmallInput, out var IntInput);
-            
-            if (!checkInput)
-            {
-                return false;
-            }
-            else
-            {
-                IntInput = Convert.ToInt32(SmallInput);
-            }
-            if (IntInput < 0)
-            {
-                return false;
-            }
-            if (LargeInput < 0)
-            {
-                return false;
-            }
-            return true;
-        }
-
-
-        public static int RandomNumber(int num)
+            public static int RandomNumber(int num)
         {
             Random rnd = new Random();
            int GeneratedNumber = rnd.Next(num);
             return GeneratedNumber;
-        }       
-        public static int[] RandomStats() 
-        {
-            int[] stats = new int[4];
-            for (int i = 0; i<stats.Length; i++)
-            {
-                stats[i] = RandomNumber(15);
-            }
-            int result = 0;
-
-            for (int i = 0; i<stats.Length; i++)
-            {
-                result += stats[i];
-            }
-            if (result > 30)
-            {
-                RandomStats();
-            }
-            return stats;
         }
 
-        public static int[] PopulateArrayBelow30PointsTotal()
+        static void Shuffle<T>(T[] array)
         {
-            var points = 30;
-            var result = new int[4];
-            for (int i = 0; i<result.Length; i++)
+            Random _random = new Random();
+            int n = array.Length;
+            for (int i = 0; i < (n - 1); i++)
             {
-                result[i] = RandomNumber(points);
-                points -= result[i];
+                int r = i + _random.Next(n - i);
+                T t = array[r];
+                array[r] = array[i];
+                array[i] = t;
             }
-            return result;
+        }
+        public static int[] RandomStats()
+        {
+            var statPointsAvailable = 30;
+            int[] statStorage = new int[4];
+            for (int i = 0; i < 4; i++)
+            {
+                var stat = RandomNumber(10);
+                var currentStatTotal = statPointsAvailable;
+                statPointsAvailable -= stat;
+                if (statPointsAvailable <= 0)
+                {
+                    stat = currentStatTotal;
+                }
+                statStorage[i] = stat;
+            }
+            Shuffle(statStorage);
+            return statStorage;
         }
 
         public static bool GoFirst()
