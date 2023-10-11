@@ -69,10 +69,21 @@ namespace ArmoredMarine
         }
         public void DealRangedDamage(Weapons Weapon, double range, MarineChar defender, MarineChar attacker)
         {
-            bool[]ShotSuccess = new bool[Weapon.ShotsPerRound];
+            //bool[]ShotSuccess = new bool[Weapon.ShotsPerRound];
             for (int i = 0; i < Weapon.ShotsPerRound; i++)
             {
-                double ShotChance = RangedAccuracyCalc(attacker.Perception, range, attacker.MainWeapon.Accuracy)*100;
+                double ShotChance = RangedAccuracyCalc(attacker.Perception, range, attacker.MainWeapon.Accuracy) * 100;
+                if (HelperFunctions.RandomNumber(100) < ShotChance)
+                {
+                    defender.ReduceHealth(Weapon.Damage);
+                    Console.WriteLine($"Dealt {Weapon.Damage} damage");
+                } else
+                {
+                    Console.WriteLine("Missed!");
+                }
+                Weapon.Ammo -= 1;
+            }
+                /*
                 
                 double RandomizedNumber = HelperFunctions.RandomNumber(100);
                 if (RandomizedNumber > 0 && RandomizedNumber < ShotChance)
@@ -92,6 +103,7 @@ namespace ArmoredMarine
                     Console.WriteLine($"Dealt {Weapon.Damage} damage");
                 } else { Console.WriteLine("Missed!"); }
             }
+            */
 
         }
     }
