@@ -10,6 +10,15 @@ namespace ArmoredMarine
 {
     public class InterfaceManager
     {
+        private bool instanceCheck { get; set; }
+        public bool gameOver { get; set; }
+
+        public InterfaceManager()
+        {
+            instanceCheck = false; //turns true during sequence activation. False when turning to new sequence.
+            gameOver = false;
+        }
+
         public void CharStatScreen(PlayerMarine HumanPlayer)
         {
             int AvailablePoints = 30;
@@ -78,6 +87,8 @@ namespace ArmoredMarine
 
         public bool BattleInstance(PlayerMarine player)
         {
+            instanceCheck = true;
+
             ComputerMarine computerPlayer = new ComputerMarine();
             var ComputerStatArray = HelperFunctions.RandomStats();
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Strength, ComputerStatArray);
@@ -97,7 +108,6 @@ namespace ArmoredMarine
             {
                 Console.WriteLine("You attack first");
                 PlayerFirePhase();
-
             }
             else
             {
@@ -117,6 +127,15 @@ namespace ArmoredMarine
                 {
                     player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer, player);
                 }
+                if (computerPlayer.Health >  0)
+                {
+                    Console.WriteLine("Enemy's turn");
+                    ComputerFirePhase();
+                } else if (computerPlayer.Health <= 0)
+                {
+                    Console.WriteLine("You have defeated the enemy!");
+                    instanceCheck = false;
+                }
             }
 
             void ComputerFirePhase()
@@ -125,19 +144,21 @@ namespace ArmoredMarine
                 Console.WriteLine("Computer fires!");
                 computerPlayer.DealRangedDamage(computerPlayer.MainWeapon, PercentRange, player, computerPlayer);
                 Console.WriteLine($"You have {player.Health} health left.");
+            } if (player.Health > 0)
+            {
+                Console.WriteLine("Your turn");
+                PlayerFirePhase();
+            } else if (player.Health <= 0)
+            {
+                Console.WriteLine("You died");
+                instanceCheck = false;
+                gameOver = true;
+
             }
-            /*
-                if (computerPlayer.Health > 0 && player.Health > 0) 
-                {
-                    FirePhase();
-                } else if (computerPlayer.Health <= 0)
-                {
-                    Console.WriteLine("Player Wins!");
-                } else if (player.Health <= 0) 
-                {
-                    Console.WriteLine("Computer Wins!");
-                }
-            */
+            if (instanceCheck == false)
+            {
+                return false;
+            }
             return true;
         }
         /*

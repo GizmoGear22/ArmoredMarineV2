@@ -50,7 +50,7 @@ namespace ArmoredMarine
         public static bool GoFirst()
         {
             Random random = new Random();
-            int value = random.Next(1);
+            int value = random.Next(2);
             bool First;
             if (value == 0) { First = true; } else { First = false; }
             return First;
