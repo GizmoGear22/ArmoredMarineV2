@@ -57,12 +57,12 @@ namespace ArmoredMarine
 
         public void ReduceHealth(int damage)
         {
-            Health -= damage;
+            this.Health -= damage;
         }
 
         public void ReduceArmor(int damage, string target)
         {
-            ArmorPoints[target] -= damage;
+            this.ArmorPoints[target] -= damage;
         }
 
         public double RangedAccuracyCalc(double Perception, double Range, double Weapon = 1, double Upgrade = 1)

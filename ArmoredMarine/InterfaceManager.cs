@@ -126,7 +126,7 @@ namespace ArmoredMarine
                 if (Action == "fire")
                 {
                     Console.WriteLine("Target Component:");
-                    Console.WriteLine("     Head\n  Torso\n     Left Pauldron\n     Right Pauldron\n    Left Arm\n      Right Arm\n     Left Leg\n      Right Leg");
+                    Console.WriteLine("     Head\n      Torso\n     Left Pauldron\n     Right Pauldron\n    Left Arm\n      Right Arm\n     Left Leg\n      Right Leg");
                     var input = Console.ReadLine().ToLower();
                     switch (input)
                     {
@@ -161,9 +161,13 @@ namespace ArmoredMarine
                     //player.DealRangedDamage(PercentRange, computerPlayer, player);
                 }else if (Action == "status")
                 {
-                    Console.WriteLine(player.ArmorPoints);
+                    foreach (var part in player.ArmorPoints)
+                    {
+                        Console.WriteLine($"{part}");
+                    }
                     PlayerFirePhase();
                 }
+
                 if (computerPlayer.Health >  0)
                 {
                     Console.WriteLine("Enemy's turn");
@@ -181,7 +185,9 @@ namespace ArmoredMarine
                 Console.WriteLine("Computer fires!");
                 computerPlayer.DealRangedDamage(PercentRange, player, computerPlayer, computerPlayer.TargetComponentPicker());
                 Console.WriteLine($"You have {player.Health} health left.");
-            } if (player.Health > 0)
+            } 
+            
+            if (player.Health > 0)
             {
                 Console.WriteLine("Your turn");
                 PlayerFirePhase();
