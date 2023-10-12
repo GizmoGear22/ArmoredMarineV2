@@ -163,7 +163,7 @@ namespace ArmoredMarine
                 {
                     foreach (var part in player.ArmorPoints)
                     {
-                        Console.WriteLine($"{part}");
+                        Console.WriteLine($"{part.Value["ArmorValue"]}");
                     }
                     PlayerFirePhase();
                 }

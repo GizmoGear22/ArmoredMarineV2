@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -28,17 +29,17 @@ namespace ArmoredMarine
         public Weapons MeleeWeapon { get; set; }
 
 
-        public Dictionary<string, int> ArmorPoints = new Dictionary<string, int>
+        public Dictionary<string, Dictionary<string, double>> ArmorPoints = new Dictionary<string, Dictionary<string, double>>
             {
-                {"head", 80 },
-                {"torso", 130 },
-                {"leftpauldron", 110 },
-                {"rightpauldron", 110 },
-                {"leftarm", 100 },
-                {"rightarm", 100 },
-                {"leftleg", 100 },
-                {"rightleg", 100 }
-            };
+                {"head", new Dictionary<string, double> { { "ArmorValue", 60 }, {"AccuracyMod", 0.5 } } },
+                {"torso", new Dictionary<string, double> { { "ArmorValue", 130 }, {"AccuracyMod", 1 } } },
+                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 110 }, {"AccuracyMod", 0.8 } } },
+                {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 110 }, {"AccuracyMod", 0.8 } } },
+                {"leftarm", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } },
+                {"rightarm", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } },
+                {"leftleg", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } },
+                {"rightleg", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } }
+            } ;
 
 
         public enum MainStats
@@ -61,25 +62,25 @@ namespace ArmoredMarine
 
         public void ReduceArmor(int damage, string target)
         {
-            this.ArmorPoints[target] -= damage;
+            this.ArmorPoints[target]["ArmorValue"] -= damage;
         }
 
-        public double RangedAccuracyCalc(double Perception, double Range, double Weapon = 1, double Upgrade = 1)
+        public double RangedAccuracyCalc(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1)
         {
             var PerceptionBonus = (2*Perception)/(2*Perception+5);
-            var Aim = PerceptionBonus * Weapon * Upgrade * Range;
+            var Aim = PerceptionBonus * Weapon * Upgrade * Range * ArmorTarget;
             return Aim;
         }
         public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker, string aimedTarget)
         {
             for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
             {
-                double ShotChance = RangedAccuracyCalc(attacker.Perception, range, attacker.MainWeapon.Accuracy) * 100;
-                if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget] > 0)
+                double ShotChance = RangedAccuracyCalc(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
+                if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
                 {
                     defender.ReduceArmor(attacker.MainWeapon.Damage, aimedTarget);
                     Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to {aimedTarget}");
-                } else if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget] == 0)
+                } else if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] == 0)
                 {
                     defender.ReduceHealth(attacker.MainWeapon.Damage);
                     Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to health");
