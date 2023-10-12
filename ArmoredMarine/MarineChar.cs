@@ -63,25 +63,25 @@ namespace ArmoredMarine
 
         public double RangedAccuracyCalc(int Perception, double Range, double Weapon = 1, double Upgrade = 1)
         {
-            double PerceptionBonus = Perception * 0.2;
+            double PerceptionBonus = (2*Perception)/(2*Perception+5);
             double Aim = PerceptionBonus * Weapon * Upgrade * Range;
             return Aim;
         }
-        public void DealRangedDamage(Weapons Weapon, double range, MarineChar defender, MarineChar attacker)
+        public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker)
         {
             //bool[]ShotSuccess = new bool[Weapon.ShotsPerRound];
-            for (int i = 0; i < Weapon.ShotsPerRound; i++)
+            for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
             {
                 double ShotChance = RangedAccuracyCalc(attacker.Perception, range, attacker.MainWeapon.Accuracy) * 100;
                 if (HelperFunctions.RandomNumber(100) < ShotChance)
                 {
-                    defender.ReduceHealth(Weapon.Damage);
-                    Console.WriteLine($"Dealt {Weapon.Damage} damage");
+                    defender.ReduceHealth(attacker.MainWeapon.Damage);
+                    Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage");
                 } else
                 {
                     Console.WriteLine("Missed!");
                 }
-                Weapon.Ammo -= 1;
+                attacker.MainWeapon.Ammo -= 1;
             }
                 /*
                 

@@ -125,7 +125,7 @@ namespace ArmoredMarine
                 Action = Action.ToLower();
                 if (Action == "fire")
                 {
-                    player.DealRangedDamage(player.MainWeapon, PercentRange, computerPlayer, player);
+                    player.DealRangedDamage(PercentRange, computerPlayer, player);
                 }
                 if (computerPlayer.Health >  0)
                 {
@@ -142,7 +142,7 @@ namespace ArmoredMarine
             {
                 Console.WriteLine("Computer Acts");
                 Console.WriteLine("Computer fires!");
-                computerPlayer.DealRangedDamage(computerPlayer.MainWeapon, PercentRange, player, computerPlayer);
+                computerPlayer.DealRangedDamage(PercentRange, player, computerPlayer);
                 Console.WriteLine($"You have {player.Health} health left.");
             } if (player.Health > 0)
             {
