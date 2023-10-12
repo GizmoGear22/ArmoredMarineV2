@@ -98,7 +98,7 @@ namespace ArmoredMarine
 
             computerPlayer.InsertMainWeapon();
 
-            FieldManager fieldManager = new FieldManager(50, 50);
+            FieldManager fieldManager = new FieldManager(10, 10);
             int Range = fieldManager.DistanceBetween();
             double PercentRange = HelperFunctions.RangeToAimAdjustment(Range);
 
@@ -126,7 +126,7 @@ namespace ArmoredMarine
                 if (Action == "fire")
                 {
                     Console.WriteLine("Target Component:");
-                    Console.WriteLine("     Head\n      Torso\n     Left Pauldron\n     Right Pauldron\n    Left Arm\n      Right Arm\n     Left Leg\n      Right Leg");
+                    Console.WriteLine(" Head\n Torso\n Left Pauldron\n Right Pauldron\n Left Arm\n Right Arm\n Left Leg\n Right Leg");
                     var input = Console.ReadLine().ToLower();
                     switch (input)
                     {
@@ -185,19 +185,21 @@ namespace ArmoredMarine
                 Console.WriteLine("Computer fires!");
                 computerPlayer.DealRangedDamage(PercentRange, player, computerPlayer, computerPlayer.TargetComponentPicker());
                 Console.WriteLine($"You have {player.Health} health left.");
-            } 
-            
-            if (player.Health > 0)
-            {
-                Console.WriteLine("Your turn");
-                PlayerFirePhase();
-            } else if (player.Health <= 0)
-            {
-                Console.WriteLine("You died");
-                instanceCheck = false;
-                gameOver = true;
+                if (player.Health > 0)
+                {
+                    Console.WriteLine("Your turn");
+                    PlayerFirePhase();
+                }
+                else if (player.Health <= 0)
+                {
+                    Console.WriteLine("You died");
+                    instanceCheck = false;
+                    gameOver = true;
 
+                }
             }
+
+
             if (instanceCheck == false)
             {
                 return false;

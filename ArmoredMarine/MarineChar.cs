@@ -40,7 +40,6 @@ namespace ArmoredMarine
                 {"rightleg", 100 }
             };
 
-        
 
         public enum MainStats
         {
@@ -73,7 +72,6 @@ namespace ArmoredMarine
         }
         public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker, string aimedTarget)
         {
-            //bool[]ShotSuccess = new bool[Weapon.ShotsPerRound];
             for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
             {
                 double ShotChance = RangedAccuracyCalc(attacker.Perception, range, attacker.MainWeapon.Accuracy) * 100;
@@ -84,34 +82,13 @@ namespace ArmoredMarine
                 } else if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget] == 0)
                 {
                     defender.ReduceHealth(attacker.MainWeapon.Damage);
-                    Console.WriteLine($"Dealt {attacker.MainWeapon.Damage}");
+                    Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to health");
                 } else
                 {
                     Console.WriteLine("Missed!");
                 }
                 attacker.MainWeapon.Ammo -= 1;
             }
-                /*
-                
-                double RandomizedNumber = HelperFunctions.RandomNumber(100);
-                if (RandomizedNumber > 0 && RandomizedNumber < ShotChance)
-                { 
-                    ShotSuccess[i] = true;
-                } else
-                {
-                    ShotSuccess[i] = false;
-                }
-                Weapon.Ammo -= 1;
-            }
-            foreach (bool item in ShotSuccess)
-            {
-                if (item == true)
-                {
-                    defender.ReduceHealth(Weapon.Damage);
-                    Console.WriteLine($"Dealt {Weapon.Damage} damage");
-                } else { Console.WriteLine("Missed!"); }
-            }
-            */
 
         }
     }
