@@ -18,7 +18,7 @@ namespace ArmoredMarine
             return GeneratedNumber;
         }
 
-        static void Shuffle<T>(T[] array) //Pulled as Fisher-Yates Shuffle Algorithm. I'll figure out how it works later =/
+        public static void Shuffle<T>(T[] array) //Pulled as Fisher-Yates Shuffle Algorithm. I'll figure out how it works later =/
         {
             Random _random = new Random();
             int n = array.Length;
@@ -28,24 +28,7 @@ namespace ArmoredMarine
                 (array[i], array[r]) = (array[r], array[i]);
             }
         }
-        public static int[] RandomStats()
-        {
-            var statPointsAvailable = 30;
-            int[] statStorage = new int[4];
-            for (int i = 0; i < 4; i++)
-            {
-                var stat = RandomNumber(10);
-                var currentStatTotal = statPointsAvailable;
-                statPointsAvailable -= stat;
-                if (statPointsAvailable <= 0)
-                {
-                    stat = currentStatTotal;
-                }
-                statStorage[i] = stat;
-            }
-            Shuffle(statStorage);
-            return statStorage;
-        }
+
 
         public static bool GoFirst()
         {

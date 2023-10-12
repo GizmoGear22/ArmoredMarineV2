@@ -90,7 +90,7 @@ namespace ArmoredMarine
             instanceCheck = true;
 
             ComputerMarine computerPlayer = new ComputerMarine();
-            var ComputerStatArray = HelperFunctions.RandomStats();
+            var ComputerStatArray = computerPlayer.RandomStats();
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Strength, ComputerStatArray);
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Agility, ComputerStatArray);
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Resilience, ComputerStatArray);
@@ -120,12 +120,49 @@ namespace ArmoredMarine
             {
                 Console.WriteLine("What will you do?");
                 Console.WriteLine("Type in the action you with from the list of options:");
-                Console.WriteLine("Fire");
+                Console.WriteLine("Fire\nstatus");
                 string Action = Console.ReadLine();
                 Action = Action.ToLower();
                 if (Action == "fire")
                 {
-                    player.DealRangedDamage(PercentRange, computerPlayer, player);
+                    Console.WriteLine("Target Component:");
+                    Console.WriteLine("     Head\n  Torso\n     Left Pauldron\n     Right Pauldron\n    Left Arm\n      Right Arm\n     Left Leg\n      Right Leg");
+                    var input = Console.ReadLine().ToLower();
+                    switch (input)
+                    {
+                        case "head":
+                            player.DealRangedDamage(PercentRange, computerPlayer, player, "head");
+                            break;
+                        case "torso":
+                            player.DealRangedDamage(PercentRange, computerPlayer, player, "torso");
+                            break;
+                        case "left pauldron":
+                            player.DealRangedDamage(PercentRange, computerPlayer, player, "leftpauldron");
+                            break;
+                        case "right pauldron":
+                            player.DealRangedDamage(PercentRange, computerPlayer, player, "rightpauldron");
+                            break;
+                        case "left arm":
+                            player.DealRangedDamage(PercentRange, computerPlayer, player, "leftarm");
+                            break;
+                        case "right arm":
+                            player.DealRangedDamage(PercentRange, computerPlayer, player, "rightarm");
+                            break;
+                        case "left leg":
+                            player.DealRangedDamage(PercentRange, computerPlayer, player, "leftleg");
+                            break;
+                        case "right leg":
+                            player.DealRangedDamage(PercentRange, computerPlayer, player, "rightleg");
+                            break;
+                        default:
+                            Console.WriteLine("You goofed!");
+                            break;
+                    }
+                    //player.DealRangedDamage(PercentRange, computerPlayer, player);
+                }else if (Action == "status")
+                {
+                    Console.WriteLine(player.ArmorPoints);
+                    PlayerFirePhase();
                 }
                 if (computerPlayer.Health >  0)
                 {
@@ -142,7 +179,7 @@ namespace ArmoredMarine
             {
                 Console.WriteLine("Computer Acts");
                 Console.WriteLine("Computer fires!");
-                computerPlayer.DealRangedDamage(PercentRange, player, computerPlayer);
+                computerPlayer.DealRangedDamage(PercentRange, player, computerPlayer, computerPlayer.TargetComponentPicker());
                 Console.WriteLine($"You have {player.Health} health left.");
             } if (player.Health > 0)
             {

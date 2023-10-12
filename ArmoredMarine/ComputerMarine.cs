@@ -17,8 +17,26 @@ namespace ArmoredMarine
             Health = 100;
             
         }
+
+        public int[] RandomStats()
+        {
+            var statPointsAvailable = 30;
+            int[] statStorage = new int[4];
+            for (int i = 0; i < 4; i++)
+            {
+                var stat = HelperFunctions.RandomNumber(10);
+                var currentStatTotal = statPointsAvailable;
+                statPointsAvailable -= stat;
+                if (statPointsAvailable <= 0)
+                {
+                    stat = currentStatTotal;
+                }
+                statStorage[i] = stat;
+            }
+            HelperFunctions.Shuffle(statStorage);
+            return statStorage;
+        }
         public void AssignIndividualComputerStats(MainStats stat, int[] StatsArray)
-            //Stats Array is created in the HelperFunctions class, and called in the InterfaceManager
         {
             switch (stat)
             {
@@ -35,6 +53,40 @@ namespace ArmoredMarine
                     Perception += StatsArray[3];
                     break;
             }
+
+        }
+
+        public string TargetComponentPicker()
+        {
+            string chosenComponent = "";
+            switch(HelperFunctions.RandomNumber(7))
+            {
+                case 0:
+                    chosenComponent = "head";
+                    break;
+                case 1:
+                    chosenComponent = "torso";
+                    break;
+                case 2:
+                    chosenComponent = "leftpauldron";
+                    break;
+                case 3:
+                    chosenComponent = "rightpauldron";
+                    break;
+                case 4:
+                    chosenComponent = "leftarm";
+                    break;
+                case 5:
+                    chosenComponent = "rightarm";
+                    break;
+                case 6:
+                    chosenComponent = "leftleg";
+                    break;
+                case 7:
+                    chosenComponent = "rightleg";
+                    break;
+            }
+            return chosenComponent;
 
         }
 

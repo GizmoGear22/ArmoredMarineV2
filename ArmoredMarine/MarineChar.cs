@@ -30,15 +30,14 @@ namespace ArmoredMarine
 
         public Dictionary<string, int> ArmorPoints = new Dictionary<string, int>
             {
-                {"Head", 80 },
-                {"Torso", 130 },
-                {"LeftPauldron", 110 },
-                {"RightPauldron", 110 },
-                {"LeftArm", 100 },
-                {"RightArm", 100 },
-                {"LeftLeg", 100 },
-                {"RightLeg", 100 }
-
+                {"head", 80 },
+                {"torso", 130 },
+                {"leftpauldron", 110 },
+                {"rightpauldron", 110 },
+                {"leftarm", 100 },
+                {"rightarm", 100 },
+                {"leftleg", 100 },
+                {"rightleg", 100 }
             };
 
         
@@ -58,25 +57,34 @@ namespace ArmoredMarine
 
         public void ReduceHealth(int damage)
         {
-            this.Health -= damage;
+            Health -= damage;
         }
 
-        public double RangedAccuracyCalc(int Perception, double Range, double Weapon = 1, double Upgrade = 1)
+        public void ReduceArmor(int damage, string target)
         {
-            double PerceptionBonus = (2*Perception)/(2*Perception+5);
-            double Aim = PerceptionBonus * Weapon * Upgrade * Range;
+            ArmorPoints[target] -= damage;
+        }
+
+        public double RangedAccuracyCalc(double Perception, double Range, double Weapon = 1, double Upgrade = 1)
+        {
+            var PerceptionBonus = (2*Perception)/(2*Perception+5);
+            var Aim = PerceptionBonus * Weapon * Upgrade * Range;
             return Aim;
         }
-        public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker)
+        public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker, string aimedTarget)
         {
             //bool[]ShotSuccess = new bool[Weapon.ShotsPerRound];
             for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
             {
                 double ShotChance = RangedAccuracyCalc(attacker.Perception, range, attacker.MainWeapon.Accuracy) * 100;
-                if (HelperFunctions.RandomNumber(100) < ShotChance)
+                if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget] > 0)
+                {
+                    defender.ReduceArmor(attacker.MainWeapon.Damage, aimedTarget);
+                    Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to {aimedTarget}");
+                } else if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget] == 0)
                 {
                     defender.ReduceHealth(attacker.MainWeapon.Damage);
-                    Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage");
+                    Console.WriteLine($"Dealt {attacker.MainWeapon.Damage}");
                 } else
                 {
                     Console.WriteLine("Missed!");
