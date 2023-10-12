@@ -10,13 +10,13 @@ namespace ArmoredMarine
 {
     public class InterfaceManager
     {
-        private bool instanceCheck { get; set; }
-        public bool gameOver { get; set; }
+        private bool InstanceCheck { get; set; }
+        public bool GameOver { get; set; }
 
         public InterfaceManager()
         {
-            instanceCheck = false; //turns true during sequence activation. False when turning to new sequence.
-            gameOver = false;
+            InstanceCheck = false; //turns true during sequence activation. False when turning to new sequence.
+            GameOver = false;
         }
 
         public void CharStatScreen(PlayerMarine HumanPlayer)
@@ -87,7 +87,7 @@ namespace ArmoredMarine
 
         public bool BattleInstance(PlayerMarine player)
         {
-            instanceCheck = true;
+            InstanceCheck = true;
 
             ComputerMarine computerPlayer = new ComputerMarine();
             var ComputerStatArray = computerPlayer.RandomStats();
@@ -126,7 +126,7 @@ namespace ArmoredMarine
                 if (Action == "fire")
                 {
                     Console.WriteLine("Target Component:");
-                    Console.WriteLine(" Head\n Torso\n Left Pauldron\n Right Pauldron\n Left Arm\n Right Arm\n Left Leg\n Right Leg");
+                    Console.WriteLine("  Head\n Torso\n  Left Pauldron\n  Right Pauldron\n  Left Arm\n  Right Arm\n  Left Leg\n  Right Leg");
                     var input = Console.ReadLine().ToLower();
                     switch (input)
                     {
@@ -175,7 +175,7 @@ namespace ArmoredMarine
                 } else if (computerPlayer.Health <= 0)
                 {
                     Console.WriteLine("You have defeated the enemy!");
-                    instanceCheck = false;
+                    InstanceCheck = false;
                 }
             }
 
@@ -193,14 +193,14 @@ namespace ArmoredMarine
                 else if (player.Health <= 0)
                 {
                     Console.WriteLine("You died");
-                    instanceCheck = false;
-                    gameOver = true;
+                    InstanceCheck = false;
+                    GameOver = true;
 
                 }
             }
 
 
-            if (instanceCheck == false)
+            if (InstanceCheck == false)
             {
                 return false;
             }
