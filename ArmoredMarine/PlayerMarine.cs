@@ -15,6 +15,7 @@ namespace ArmoredMarine
             Resilience = 1;
             Perception = 1;
             Health = 100;
+            MainWeapon = new MainWeapons.BoltRifle();
         }
 
         public void SpendMoney(int CurrentMoney, double ItemCost)

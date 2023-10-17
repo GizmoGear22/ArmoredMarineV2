@@ -8,11 +8,8 @@ namespace ArmoredMarine
 
         static void Main(string[] args)
         {
-            PlayerMarine Player = new PlayerMarine();
 
-            Player.MainWeapon = new MainWeapons.BoltRifle();
-
-            InterfaceManager interfaceManager = new InterfaceManager(Player);
+            InterfaceManager interfaceManager = new InterfaceManager(new PlayerMarine());
 
             interfaceManager.CharStatScreen();
 
