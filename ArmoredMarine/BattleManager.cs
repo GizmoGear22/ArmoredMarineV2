@@ -58,28 +58,28 @@ namespace ArmoredMarine
                     switch (input)
                     {
                         case "head":
-                            player.DealRangedDamage(PercentRange, computerPlayer, player, "head");
+                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "head");
                             break;
                         case "torso":
-                            player.DealRangedDamage(PercentRange, computerPlayer, player, "torso");
+                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "torso");
                             break;
                         case "left pauldron":
-                            player.DealRangedDamage(PercentRange, computerPlayer, player, "leftpauldron");
+                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftpauldron");
                             break;
                         case "right pauldron":
-                            player.DealRangedDamage(PercentRange, computerPlayer, player, "rightpauldron");
+                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightpauldron");
                             break;
                         case "left arm":
-                            player.DealRangedDamage(PercentRange, computerPlayer, player, "leftarm");
+                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftarm");
                             break;
                         case "right arm":
-                            player.DealRangedDamage(PercentRange, computerPlayer, player, "rightarm");
+                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightarm");
                             break;
                         case "left leg":
-                            player.DealRangedDamage(PercentRange, computerPlayer, player, "leftleg");
+                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftleg");
                             break;
                         case "right leg":
-                            player.DealRangedDamage(PercentRange, computerPlayer, player, "rightleg");
+                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightleg");
                             break;
                         default:
                             Console.WriteLine("You goofed!");
@@ -112,7 +112,7 @@ namespace ArmoredMarine
             {
                 Console.WriteLine("Computer Acts");
                 Console.WriteLine("Computer fires!");
-                computerPlayer.DealRangedDamage(PercentRange, player, computerPlayer, computerPlayer.TargetComponentPicker());
+                computerPlayer.MainWeapon.DealRangedDamage(PercentRange, player, computerPlayer, computerPlayer.TargetComponentPicker());
                 Console.WriteLine($"You have {player.Health} health left.");
                 if (player.Health > 0)
                 {

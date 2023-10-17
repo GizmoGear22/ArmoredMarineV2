@@ -96,27 +96,6 @@ namespace ArmoredMarine
             }
             return true;
         }
-        /*
-            bool HealthCheck()
-            {
-                if (player.Health <= 0)
-                {
-                    Console.WriteLine("You're Dead");
-                    return false;
-                }
-                if (computerPlayer.Health <= 0)
-                {
-                    Console.WriteLine("You are victorious!");
-                    return false;
-                }
-                if (player.Health > 0 && computerPlayer.Health > 0) 
-                {
-                    Console.WriteLine("The Battle Continues");
-                    return true;
-                }
-                return true;
-            }
-        */
 
     }
 

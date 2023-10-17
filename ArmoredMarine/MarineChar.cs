@@ -55,6 +55,7 @@ namespace ArmoredMarine
             MainWeapon = new MainWeapons.BoltRifle();
         }
 
+
         public void ReduceHealth(int damage)
         {
             this.Health -= damage;
@@ -65,33 +66,7 @@ namespace ArmoredMarine
             this.ArmorPoints[target]["ArmorValue"] -= damage;
         }
 
-        public double RangedAccuracyCalc(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1)
-        {
-            var PerceptionBonus = (2*Perception)/(2*Perception+5);
-            var Aim = PerceptionBonus * Weapon * Upgrade * Range * ArmorTarget;
-            return Aim;
-        }
-        public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker, string aimedTarget)
-        {
-            for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
-            {
-                double ShotChance = RangedAccuracyCalc(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
-                if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
-                {
-                    defender.ReduceArmor(attacker.MainWeapon.Damage, aimedTarget);
-                    Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to {aimedTarget}");
-                } else if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] == 0)
-                {
-                    defender.ReduceHealth(attacker.MainWeapon.Damage);
-                    Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to health");
-                } else
-                {
-                    Console.WriteLine("Missed!");
-                }
-                attacker.MainWeapon.Ammo -= 1;
-            }
-
-        }
+        
     }
 }
 
