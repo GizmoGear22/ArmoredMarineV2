@@ -56,8 +56,9 @@
     <Compile Include="ComputerMarine.cs" />
     <Compile Include="FieldManager.cs" />
     <Compile Include="HelperFunctions.cs" />
+    <Compile Include="IWeapons.cs" />
     <Compile Include="MarineStats.cs" />
-    <Compile Include="Weapons.cs" />
+    <Compile Include="MainWeapons.cs" />
     <Compile Include="IMarine.cs" />
     <Compile Include="InterfaceManager.cs" />
     <Compile Include="MarineChar.cs" />

@@ -24,9 +24,9 @@ namespace ArmoredMarine
         public double Weight { get; set; }
         public int MaxPoints { get; set; }
         public int Credits { get; set; }
-        public Weapons MainWeapon { get; set; }
-        public Weapons SideWeapon { get; set; }
-        public Weapons MeleeWeapon { get; set; }
+        public MainWeapons MainWeapon { get; set; }
+        public MainWeapons SideWeapon { get; set; }
+        public MainWeapons MeleeWeapon { get; set; }
 
 
         public Dictionary<string, Dictionary<string, double>> ArmorPoints = new Dictionary<string, Dictionary<string, double>>
@@ -52,7 +52,7 @@ namespace ArmoredMarine
 
         public void InsertMainWeapon()
         {
-            MainWeapon = new Weapons.BoltRifle();
+            MainWeapon = new MainWeapons.BoltRifle();
         }
 
         public void ReduceHealth(int damage)

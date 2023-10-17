@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class Weapons
+    public class MainWeapons : IWeapons 
     { 
 
         public int Ammo { get; set; }
@@ -26,7 +26,7 @@ namespace ArmoredMarine
         }
         */
 
-        public class BoltRifle : Weapons
+        public class BoltRifle : MainWeapons
         {
             public BoltRifle()
             {
@@ -46,7 +46,11 @@ namespace ArmoredMarine
             {"damage", 10 },
             {"Cost", 400 }
         };
+
+
 */
+
+
 
  
         

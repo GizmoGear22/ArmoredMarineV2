@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    interface IMarine
+    interface IWeapons
     {
-        void InsertMainWeapon();
-        void ReduceHealth(int damage);
-        void ReduceArmor(int damage, string target);
-
+        double Accuracy { get; }
+        int Damage { get; }
+        int Cost { get; }
+        int ShotsPerRound { get; }
     }
 }

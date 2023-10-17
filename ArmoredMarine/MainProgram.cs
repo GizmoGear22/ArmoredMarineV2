@@ -10,13 +10,11 @@ namespace ArmoredMarine
         {
             PlayerMarine Player = new PlayerMarine();
 
-            InterfaceManager interfaceManager = new InterfaceManager();
+            InterfaceManager interfaceManager = new InterfaceManager(Player);
 
-            interfaceManager.CharStatScreen(Player);
+            interfaceManager.CharStatScreen();
 
-            Player.InsertMainWeapon();
-
-            interfaceManager.BattleInstance(Player);
+            interfaceManager.GameInstance();
         }
     }
 }
