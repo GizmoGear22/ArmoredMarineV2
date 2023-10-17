@@ -28,8 +28,6 @@ namespace ArmoredMarine
                 (array[i], array[r]) = (array[r], array[i]);
             }
         }
-
-
         public static bool GoFirst()
         {
             Random random = new Random();

@@ -66,7 +66,6 @@ namespace ArmoredMarine
             this.ArmorPoints[target]["ArmorValue"] -= damage;
         }
 
-        
     }
 }
 

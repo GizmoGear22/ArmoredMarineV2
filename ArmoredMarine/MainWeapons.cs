@@ -52,12 +52,14 @@ namespace ArmoredMarine
             for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
             {
                 double ShotChance = RangedAccuracyCalc(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
-                if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
+                var Randomness = HelperFunctions.RandomNumber(100);
+                Console.WriteLine(Randomness.ToString());
+                if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
                 {
                     defender.ReduceArmor(attacker.MainWeapon.Damage, aimedTarget);
                     Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to {aimedTarget}");
                 }
-                else if (HelperFunctions.RandomNumber(100) < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] == 0)
+                else if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] == 0)
                 {
                     defender.ReduceHealth(attacker.MainWeapon.Damage);
                     Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to health");

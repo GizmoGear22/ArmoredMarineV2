@@ -10,6 +10,8 @@ namespace ArmoredMarine
         {
             PlayerMarine Player = new PlayerMarine();
 
+            Player.MainWeapon = new MainWeapons.BoltRifle();
+
             InterfaceManager interfaceManager = new InterfaceManager(Player);
 
             interfaceManager.CharStatScreen();
