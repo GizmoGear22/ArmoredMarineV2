@@ -44,7 +44,6 @@ namespace ArmoredMarine
                 ComputerActionPhase();
             }
 
-
             void ActionPhase()
             {
                 Console.WriteLine("What will you do?");
@@ -155,8 +154,7 @@ namespace ArmoredMarine
                         InstanceCheck = false;
 
                     }
-                
-                
+
             }
 
             if (InstanceCheck == false)

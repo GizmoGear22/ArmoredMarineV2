@@ -33,7 +33,7 @@ namespace ArmoredMarine
             {
                 Name = "BoltRifle";
                 Ammo = 40;
-                Accuracy = 0.6;
+                Accuracy = 0.8;
                 Damage = 10;
                 Cost = 300;
                 ShotsPerRound = 10;
@@ -77,7 +77,7 @@ namespace ArmoredMarine
             {
                 Name = "AutoBoltRifle";
                 Ammo = 40;
-                Accuracy = 0.5;
+                Accuracy = 0.7;
                 Damage = 10;
                 Cost = 400;
                 ShotsPerRound = 10;
