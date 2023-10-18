@@ -56,7 +56,7 @@ namespace ArmoredMarine
             MainWeapon = weapon;
             
         }
-
+        public static Random RandomNum = new Random();
 
         public void ReduceHealth(int damage)
         {

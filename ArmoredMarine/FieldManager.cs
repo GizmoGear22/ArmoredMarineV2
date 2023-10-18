@@ -23,6 +23,16 @@ namespace ArmoredMarine
             return Distance;
         }
 
+        public void ReducePlayerPosition()
+        {
+            PlayerPosition -= 10;
+        }
+
+        public void ReduceCompPosition()
+        {
+            CompPosition -= 10;
+        }
+
         
         
 

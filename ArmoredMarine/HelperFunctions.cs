@@ -11,16 +11,14 @@ namespace ArmoredMarine
 {
     public class HelperFunctions
     {
-            public static int RandomNumber(int num)
+            public static int RandomNumber(int num, Random rnd)
         {
-            Random rnd = new Random();
            int GeneratedNumber = rnd.Next(num);
             return GeneratedNumber;
         }
 
-        public static void Shuffle<T>(T[] array) //Pulled as Fisher-Yates Shuffle Algorithm. I'll figure out how it works later =/
+        public static void Shuffle<T>(T[] array, Random _random) //Pulled as Fisher-Yates Shuffle Algorithm. I'll figure out how it works later =/
         {
-            Random _random = new Random();
             int n = array.Length;
             for (int i = 0; i < (n - 1); i++)
             {
@@ -28,12 +26,12 @@ namespace ArmoredMarine
                 (array[i], array[r]) = (array[r], array[i]);
             }
         }
-        public static bool GoFirst()
+        public static bool GoFirst(Random random)
         {
-            Random random = new Random();
-            int value = random.Next(2);
+
+            int value = random.Next(100);
             bool First;
-            if (value == 0) { First = true; } else { First = false; }
+            if (value <= 50) { First = true; } else { First = false; }
             return First;
         }
 

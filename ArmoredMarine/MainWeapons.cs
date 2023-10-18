@@ -16,6 +16,7 @@ namespace ArmoredMarine
         public int Damage { get; protected set; }
         public int Cost { get; protected set; }
         public int ShotsPerRound { get; protected set; }
+        public double Weight { get; protected set; }
 
         public enum WeaponChoices
         {
@@ -27,6 +28,7 @@ namespace ArmoredMarine
 
         public class BoltRifle : MainWeapons, IWeapons
         {
+
             public BoltRifle()
             {
                 Name = "BoltRifle";
@@ -35,6 +37,7 @@ namespace ArmoredMarine
                 Damage = 10;
                 Cost = 300;
                 ShotsPerRound = 10;
+                Weight = 10;
             }
             public double RangedAccuracyCalc(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1)
             {
@@ -47,7 +50,7 @@ namespace ArmoredMarine
                 for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
                 {
                     double ShotChance = RangedAccuracyCalc(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
-                    var Randomness = HelperFunctions.RandomNumber(100);
+                    var Randomness = HelperFunctions.RandomNumber(100, MarineChar.RandomNum);
                     Console.WriteLine(Randomness.ToString());
                     if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
                     {
@@ -78,6 +81,7 @@ namespace ArmoredMarine
                 Damage = 10;
                 Cost = 400;
                 ShotsPerRound = 10;
+                Weight = 20;
             }
 
             public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker, string aimedTarget)
@@ -86,7 +90,7 @@ namespace ArmoredMarine
                 for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
                 {
                     double ShotChance = RangedAccuracyCalc(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
-                    var Randomness = HelperFunctions.RandomNumber(100);
+                    var Randomness = HelperFunctions.RandomNumber(100, MarineChar.RandomNum);
                     Console.WriteLine(Randomness.ToString());
                     if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
                     {
@@ -115,7 +119,7 @@ namespace ArmoredMarine
                     for (int i = 0; i<=counter; i++)
                     {
                         double ShotChance = RangedAccuracyCalc(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
-                        var Randomness = HelperFunctions.RandomNumber(100);
+                        var Randomness = HelperFunctions.RandomNumber(100, MarineChar.RandomNum);
                         Console.WriteLine(Randomness.ToString());
                         if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
                         {

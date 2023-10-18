@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace ArmoredMarine
         }
         public bool BattleInstance(PlayerMarine player)
         {
+            Random random = new Random();
             bool InstanceCheck = true;
 
             ComputerMarine computerPlayer = new ComputerMarine();
@@ -25,12 +27,12 @@ namespace ArmoredMarine
 
             computerPlayer.InsertMainWeapon(new MainWeapons.BoltRifle());
 
-            FieldManager fieldManager = new FieldManager(10, 10);
+            FieldManager fieldManager = new FieldManager(50, 50);
             int Range = fieldManager.DistanceBetween();
             double PercentRange = HelperFunctions.RangeToAimAdjustment(Range);
 
 
-            var goFirst = HelperFunctions.GoFirst();
+            var goFirst = HelperFunctions.GoFirst(MarineChar.RandomNum);
             if (goFirst == true)
             {
                 Console.WriteLine("You attack first");
@@ -47,7 +49,7 @@ namespace ArmoredMarine
             {
                 Console.WriteLine("What will you do?");
                 Console.WriteLine("Type in the action you with from the list of options:");
-                Console.WriteLine("Fire\nStatus");
+                Console.WriteLine("Fire\nMove Forward\nStatus");
                 string Action = Console.ReadLine();
                 Action = Action.ToLower();
                 if (Action == "fire")
@@ -86,10 +88,13 @@ namespace ArmoredMarine
                             break;
                     }
                     player.Actions -= 1;
-                    if (player.Actions > 0)
-                    {
-                        ActionPhase();
-                    }
+
+                } else if (Action == "move forward")
+                {
+                    fieldManager.ReducePlayerPosition();
+                    Range = fieldManager.DistanceBetween();
+                    Console.WriteLine($"You move forward! You are now {Range} meters from your enemy!");            
+                    player.Actions -= 1;
                 }
                 else if (Action == "status")
                 {
@@ -99,10 +104,15 @@ namespace ArmoredMarine
                     }
                     ActionPhase();
                 }
+                if (player.Actions > 0)
+                {
+                    ActionPhase();
+                }
 
-                if (computerPlayer.Health > 0)
+                if (computerPlayer.Health > 0 && player.Actions == 0)
                 {
                     Console.WriteLine("Enemy's turn");
+                    player.Actions = 2;
                     ComputerActionPhase();
                 }
                 else if (computerPlayer.Health <= 0)
@@ -115,20 +125,38 @@ namespace ArmoredMarine
             void ComputerActionPhase()
             {
                 Console.WriteLine("Computer Acts");
-                Console.WriteLine("Computer fires!");
-                computerPlayer.MainWeapon.DealRangedDamage(PercentRange, player, computerPlayer, computerPlayer.TargetComponentPicker());
-                Console.WriteLine($"You have {player.Health} health left.");
-                if (player.Health > 0)
+                var randomAction = HelperFunctions.RandomNumber(100, MarineChar.RandomNum);
+                if (randomAction < 50 && computerPlayer.Actions > 0)
+                {
+                    Console.WriteLine("Computer fires!");
+                    computerPlayer.MainWeapon.DealRangedDamage(PercentRange, player, computerPlayer, computerPlayer.TargetComponentPicker());
+                    Console.WriteLine($"You have {player.Health} health left.");
+                    computerPlayer.Actions -= 1;
+                    ComputerActionPhase();
+                }
+                else if (randomAction > 50 && computerPlayer.Actions > 0)
+                {
+
+                    fieldManager.ReduceCompPosition();
+                    Range = fieldManager.DistanceBetween();
+                    Console.WriteLine($"Computer moves forward! He's now {Range} meters from you!");
+                    computerPlayer.Actions -= 1;
+                    ComputerActionPhase();
+                }
+                else if (player.Health > 0 && computerPlayer.Actions == 0)
                 {
                     Console.WriteLine("Your turn");
+                    computerPlayer.Actions = 2;
                     ActionPhase();
                 }
                 else if (player.Health <= 0)
-                {
-                    Console.WriteLine("You died");
-                    InstanceCheck = false;
+                    {
+                        Console.WriteLine("You died");
+                        InstanceCheck = false;
 
-                }
+                    }
+                
+                
             }
 
             if (InstanceCheck == false)
