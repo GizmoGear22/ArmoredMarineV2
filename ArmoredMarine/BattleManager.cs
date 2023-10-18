@@ -51,58 +51,58 @@ namespace ArmoredMarine
                 Console.WriteLine("Fire\nMove Forward\nStatus");
                 string Action = Console.ReadLine();
                 Action = Action.ToLower();
-                if (Action == "fire")
+                switch (Action)
                 {
-                    Console.WriteLine("Target Component:");
-                    Console.WriteLine("  Head\n  Torso\n  Left Pauldron\n  Right Pauldron\n  Left Arm\n  Right Arm\n  Left Leg\n  Right Leg");
-                    var input = Console.ReadLine().ToLower();
-                    switch (input)
-                    {
-                        case "head":
-                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "head");
-                            break;
-                        case "torso":
-                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "torso");
-                            break;
-                        case "left pauldron":
-                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftpauldron");
-                            break;
-                        case "right pauldron":
-                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightpauldron");
-                            break;
-                        case "left arm":
-                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftarm");
-                            break;
-                        case "right arm":
-                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightarm");
-                            break;
-                        case "left leg":
-                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftleg");
-                            break;
-                        case "right leg":
-                            player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightleg");
-                            break;
-                        default:
-                            Console.WriteLine("You goofed!");
-                            break;
-                    }
-                    player.Actions -= 1;
+                    case "fire":
+                        Console.WriteLine("Target Component:");
+                        Console.WriteLine("  Head\n  Torso\n  Left Pauldron\n  Right Pauldron\n  Left Arm\n  Right Arm\n  Left Leg\n  Right Leg");
+                        var input = Console.ReadLine().ToLower();
+                        switch (input)
+                        {
+                            case "head":
+                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "head");
+                                break;
+                            case "torso":
+                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "torso");
+                                break;
+                            case "left pauldron":
+                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftpauldron");
+                                break;
+                            case "right pauldron":
+                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightpauldron");
+                                break;
+                            case "left arm":
+                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftarm");
+                                break;
+                            case "right arm":
+                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightarm");
+                                break;
+                            case "left leg":
+                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftleg");
+                                break;
+                            case "right leg":
+                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightleg");
+                                break;
+                            default:
+                                Console.WriteLine("You goofed!");
+                                break;
+                        }
+                        player.Actions -= 1;
+                        break;
+                    case "move forward":
+                        fieldManager.ReducePlayerPosition();
+                        Range = fieldManager.DistanceBetween();
+                        Console.WriteLine($"You move forward! You are now {Range} meters from your enemy!");
+                        player.Actions -= 1;
+                        break;
+                    case "status":
+                        foreach (var part in player.ArmorPoints)
+                        {
+                            Console.WriteLine($"{part.Value["ArmorValue"]}");
+                        }
+                        break;
+                }
 
-                } else if (Action == "move forward")
-                {
-                    fieldManager.ReducePlayerPosition();
-                    Range = fieldManager.DistanceBetween();
-                    Console.WriteLine($"You move forward! You are now {Range} meters from your enemy!");            
-                    player.Actions -= 1;
-                }
-                else if (Action == "status")
-                {
-                    foreach (var part in player.ArmorPoints)
-                    {
-                        Console.WriteLine($"{part.Value["ArmorValue"]}");
-                    }
-                    ActionPhase();
-                }
                 if (player.Actions > 0)
                 {
                     ActionPhase();
