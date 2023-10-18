@@ -33,7 +33,7 @@ namespace ArmoredMarine
             {
                 Name = "BoltRifle";
                 Ammo = 40;
-                Accuracy = 0.6;
+                Accuracy = 0.9;
                 Damage = 10;
                 Cost = 300;
                 ShotsPerRound = 10;
@@ -41,15 +41,16 @@ namespace ArmoredMarine
             }
             public double RangedAccuracyCalc(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1)
             {
-                var PerceptionBonus = (2 * Perception) / (2 * Perception + 5);
+                var PerceptionBonus = Math.Log(Perception+1, 12);
                 var Aim = PerceptionBonus * Weapon * Upgrade * Range * ArmorTarget;
                 return Aim;
             }
             public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker, string aimedTarget)
             {
+                double PercentRange = HelperFunctions.RangeToAimAdjustment(range);
                 for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
                 {
-                    double ShotChance = RangedAccuracyCalc(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
+                    double ShotChance = RangedAccuracyCalc(attacker.Perception, PercentRange, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
                     var Randomness = HelperFunctions.RandomNumber(100, MarineChar.RandomNum);
                     Console.WriteLine(Randomness.ToString());
                     if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
@@ -77,7 +78,7 @@ namespace ArmoredMarine
             {
                 Name = "AutoBoltRifle";
                 Ammo = 40;
-                Accuracy = 0.5;
+                Accuracy = 0.8;
                 Damage = 10;
                 Cost = 400;
                 ShotsPerRound = 10;

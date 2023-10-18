@@ -28,8 +28,8 @@ namespace ArmoredMarine
             computerPlayer.InsertMainWeapon(new MainWeapons.BoltRifle());
 
             FieldManager fieldManager = new FieldManager(50, 50);
-            int Range = fieldManager.DistanceBetween();
-            double PercentRange = HelperFunctions.RangeToAimAdjustment(Range);
+            
+            
 
 
             var goFirst = HelperFunctions.GoFirst(MarineChar.RandomNum);
@@ -46,6 +46,7 @@ namespace ArmoredMarine
 
             void ActionPhase()
             {
+                int Range = fieldManager.DistanceBetween();
                 Console.WriteLine("What will you do?");
                 Console.WriteLine("Type in the action you with from the list of options:");
                 Console.WriteLine("Fire\nMove Forward\nStatus");
@@ -60,28 +61,28 @@ namespace ArmoredMarine
                         switch (input)
                         {
                             case "head":
-                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "head");
+                                player.MainWeapon.DealRangedDamage(Range, computerPlayer, player, "head");
                                 break;
                             case "torso":
-                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "torso");
+                                player.MainWeapon.DealRangedDamage(Range, computerPlayer, player, "torso");
                                 break;
                             case "left pauldron":
-                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftpauldron");
+                                player.MainWeapon.DealRangedDamage(Range, computerPlayer, player, "leftpauldron");
                                 break;
                             case "right pauldron":
-                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightpauldron");
+                                player.MainWeapon.DealRangedDamage(Range, computerPlayer, player, "rightpauldron");
                                 break;
                             case "left arm":
-                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftarm");
+                                player.MainWeapon.DealRangedDamage(Range, computerPlayer, player, "leftarm");
                                 break;
                             case "right arm":
-                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightarm");
+                                player.MainWeapon.DealRangedDamage(Range, computerPlayer, player, "rightarm");
                                 break;
                             case "left leg":
-                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "leftleg");
+                                player.MainWeapon.DealRangedDamage(Range, computerPlayer, player, "leftleg");
                                 break;
                             case "right leg":
-                                player.MainWeapon.DealRangedDamage(PercentRange, computerPlayer, player, "rightleg");
+                                player.MainWeapon.DealRangedDamage(Range, computerPlayer, player, "rightleg");
                                 break;
                             default:
                                 Console.WriteLine("You goofed!");
@@ -124,11 +125,12 @@ namespace ArmoredMarine
             void ComputerActionPhase()
             {
                 Console.WriteLine("Computer Acts");
+                int Range = fieldManager.DistanceBetween();
                 var randomAction = HelperFunctions.RandomNumber(100, MarineChar.RandomNum);
                 if (randomAction < 50 && computerPlayer.Actions > 0)
                 {
                     Console.WriteLine("Computer fires!");
-                    computerPlayer.MainWeapon.DealRangedDamage(PercentRange, player, computerPlayer, computerPlayer.TargetComponentPicker());
+                    computerPlayer.MainWeapon.DealRangedDamage(Range, player, computerPlayer, computerPlayer.TargetComponentPicker());
                     Console.WriteLine($"You have {player.Health} health left.");
                     computerPlayer.Actions -= 1;
                     ComputerActionPhase();
