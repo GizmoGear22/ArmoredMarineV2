@@ -24,9 +24,9 @@ namespace ArmoredMarine
         public double Weight { get; set; }
         public int MaxPoints { get; set; }
         public int Credits { get; set; }
-        public MainWeapons MainWeapon { get; set; }
-        public MainWeapons SideWeapon { get; set; }
-        public MainWeapons MeleeWeapon { get; set; }
+        public IWeapons MainWeapon { get; set; }
+        public IWeapons SideWeapon { get; set; }
+        public IWeapons MeleeWeapon { get; set; }
 
 
         public Dictionary<string, Dictionary<string, double>> ArmorPoints = new Dictionary<string, Dictionary<string, double>>
@@ -52,6 +52,7 @@ namespace ArmoredMarine
 
         public void InsertMainWeapon(IWeapons weapon)
         {
+            MainWeapon = weapon;
             
         }
 

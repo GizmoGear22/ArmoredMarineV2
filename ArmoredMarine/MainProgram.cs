@@ -13,6 +13,8 @@ namespace ArmoredMarine
 
             interfaceManager.CharStatScreen();
 
+            interfaceManager.WeaponPicker();
+
             interfaceManager.GameInstance();
         }
     }

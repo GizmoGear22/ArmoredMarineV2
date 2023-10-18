@@ -23,7 +23,7 @@ namespace ArmoredMarine
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Resilience, ComputerStatArray);
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Perception, ComputerStatArray);
 
-            computerPlayer.InsertMainWeapon();
+            computerPlayer.InsertMainWeapon(new MainWeapons.BoltRifle());
 
             FieldManager fieldManager = new FieldManager(10, 10);
             int Range = fieldManager.DistanceBetween();

@@ -85,7 +85,23 @@ namespace ArmoredMarine
             AssignStat(MarineChar.MainStats.Perception, AssignPerception);
 
         }
-            
+
+        //This is a temporary method in order to implement weapons interface
+        public void WeaponPicker()
+        {
+            Console.WriteLine("Pick your weapon:\n BoltRifle\n AutoBoltRifle");
+            var playerChoice = Console.ReadLine().ToLower();
+            switch (playerChoice)
+            {
+                case "boltrifle":
+                    HumanPlayer.InsertMainWeapon(new MainWeapons.BoltRifle());
+                    break;
+                case "autoboltrifle":
+                    HumanPlayer.InsertMainWeapon(new MainWeapons.AutoBoltRifle());
+                    break;
+            }
+        }
+
         public bool GameInstance()
         {
             BattleManager Battle = new BattleManager();
