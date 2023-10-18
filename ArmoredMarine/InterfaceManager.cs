@@ -99,6 +99,10 @@ namespace ArmoredMarine
                 case "autoboltrifle":
                     HumanPlayer.InsertMainWeapon(new MainWeapons.AutoBoltRifle());
                     break;
+                default:
+                    Console.WriteLine("Pick you proper weapon you dolt!");
+                    WeaponPicker();
+                    break;
             }
         }
 

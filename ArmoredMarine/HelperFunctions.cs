@@ -39,7 +39,7 @@ namespace ArmoredMarine
 
         public static double RangeToAimAdjustment(double range)
         {
-            double RangeAimAdjust = (-.01 * range) + 1.4;
+            double RangeAimAdjust = (-.009 * range) + 0.9;
             return RangeAimAdjust;
         }
    

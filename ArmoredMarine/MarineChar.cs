@@ -24,6 +24,7 @@ namespace ArmoredMarine
         public double Weight { get; set; }
         public int MaxPoints { get; set; }
         public int Credits { get; set; }
+        public int Actions { get; set; } = 2;
         public IWeapons MainWeapon { get; set; }
         public IWeapons SideWeapon { get; set; }
         public IWeapons MeleeWeapon { get; set; }

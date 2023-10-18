@@ -34,20 +34,20 @@ namespace ArmoredMarine
             if (goFirst == true)
             {
                 Console.WriteLine("You attack first");
-                PlayerFirePhase();
+                ActionPhase();
             }
             else
             {
                 Console.WriteLine("Enemy sneaks up on you!");
-                ComputerFirePhase();
+                ComputerActionPhase();
             }
 
 
-            void PlayerFirePhase()
+            void ActionPhase()
             {
                 Console.WriteLine("What will you do?");
                 Console.WriteLine("Type in the action you with from the list of options:");
-                Console.WriteLine("Fire\nstatus");
+                Console.WriteLine("Fire\nStatus");
                 string Action = Console.ReadLine();
                 Action = Action.ToLower();
                 if (Action == "fire")
@@ -85,7 +85,11 @@ namespace ArmoredMarine
                             Console.WriteLine("You goofed!");
                             break;
                     }
-                    //player.DealRangedDamage(PercentRange, computerPlayer, player);
+                    player.Actions -= 1;
+                    if (player.Actions > 0)
+                    {
+                        ActionPhase();
+                    }
                 }
                 else if (Action == "status")
                 {
@@ -93,13 +97,13 @@ namespace ArmoredMarine
                     {
                         Console.WriteLine($"{part.Value["ArmorValue"]}");
                     }
-                    PlayerFirePhase();
+                    ActionPhase();
                 }
 
                 if (computerPlayer.Health > 0)
                 {
                     Console.WriteLine("Enemy's turn");
-                    ComputerFirePhase();
+                    ComputerActionPhase();
                 }
                 else if (computerPlayer.Health <= 0)
                 {
@@ -108,7 +112,7 @@ namespace ArmoredMarine
                 }
             }
 
-            void ComputerFirePhase()
+            void ComputerActionPhase()
             {
                 Console.WriteLine("Computer Acts");
                 Console.WriteLine("Computer fires!");
@@ -117,7 +121,7 @@ namespace ArmoredMarine
                 if (player.Health > 0)
                 {
                     Console.WriteLine("Your turn");
-                    PlayerFirePhase();
+                    ActionPhase();
                 }
                 else if (player.Health <= 0)
                 {
