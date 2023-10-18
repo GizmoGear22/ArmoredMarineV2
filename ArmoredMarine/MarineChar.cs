@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class MarineChar : IMarine
+    public class MarineChar 
     {
         public int Health { get; set; }
         public int MaxHealth { get; set; }
@@ -50,9 +50,9 @@ namespace ArmoredMarine
             Perception
         }
 
-        public void InsertMainWeapon()
+        public void InsertMainWeapon(IWeapons weapon)
         {
-            MainWeapon = new MainWeapons.BoltRifle();
+            
         }
 
 

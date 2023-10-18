@@ -16,6 +16,13 @@ namespace ArmoredMarine
         public int Cost { get; protected set; }
         public int ShotsPerRound { get; protected set; }
 
+        public enum WeaponChoices
+        {
+            BoltRifle,
+            AutoBoltRifle,
+            PlasmaRifle,
+            MeltaGun
+        }
 
         public class BoltRifle : MainWeapons
         {
