@@ -32,15 +32,18 @@ namespace ArmoredMarine
 
         public Dictionary<string, Dictionary<string, double>> ArmorPoints = new Dictionary<string, Dictionary<string, double>>
             {
-                {"head", new Dictionary<string, double> { { "ArmorValue", 60 }, {"AccuracyMod", 0.5 } } },
-                {"torso", new Dictionary<string, double> { { "ArmorValue", 130 }, {"AccuracyMod", 1 } } },
-                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 110 }, {"AccuracyMod", 0.8 } } },
-                {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 110 }, {"AccuracyMod", 0.8 } } },
-                {"leftarm", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } },
-                {"rightarm", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } },
-                {"leftleg", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } },
-                {"rightleg", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } }
+                {"head", new Dictionary<string, double> { { "ArmorValue", .60 }, {"AccuracyMod", 0.5 } } },
+                {"torso", new Dictionary<string, double> { { "ArmorValue", 1.30 }, {"AccuracyMod", 1 } } },
+                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 0.8 } } },
+                {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 0.8 } } },
+                {"leftarm", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } },
+                {"rightarm", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } },
+                {"leftleg", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } },
+                {"rightleg", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } }
             } ;
+
+        
+
 
 
         public enum MainStats
@@ -49,6 +52,14 @@ namespace ArmoredMarine
             Agility,
             Resilience,
             Perception
+        }
+
+        public void ResilienceToArmor()
+        {
+            foreach (var part in ArmorPoints)
+            {
+                part.Value["ArmorValue"] = Math.Floor(part.Value["ArmorValue"] * Resilience * 10);
+            }
         }
 
         public void InsertMainWeapon(IWeapons weapon)

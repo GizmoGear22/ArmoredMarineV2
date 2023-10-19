@@ -25,12 +25,12 @@ namespace ArmoredMarine
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Resilience, ComputerStatArray);
             computerPlayer.AssignIndividualComputerStats(MarineChar.MainStats.Perception, ComputerStatArray);
 
+            computerPlayer.ResilienceToArmor();
+
             computerPlayer.InsertMainWeapon(new MainWeapons.BoltRifle());
 
             FieldManager fieldManager = new FieldManager(50, 50);
             
-            
-
 
             var goFirst = HelperFunctions.GoFirst(MarineChar.RandomNum);
             if (goFirst == true)

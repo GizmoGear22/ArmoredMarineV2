@@ -26,7 +26,7 @@ namespace ArmoredMarine
             MeltaGun
         }
 
-        public class BoltRifle : MainWeapons, IWeapons
+        public class BoltRifle : MainWeapons, IWeapons, IWeight
         {
 
             public BoltRifle()
@@ -70,9 +70,14 @@ namespace ArmoredMarine
                     attacker.MainWeapon.Ammo -= 1;
                 }
             }
+
+            public double GetWeight()
+            {
+                return Weight;
+            }
         }
 
-        public class AutoBoltRifle : MainWeapons, IWeapons
+        public class AutoBoltRifle : MainWeapons, IWeapons, IWeight
         {
             public AutoBoltRifle()
             {
@@ -143,6 +148,11 @@ namespace ArmoredMarine
                         attacker.MainWeapon.Ammo -= 1;
                     }
                 }
+            }
+
+            public double GetWeight()
+            {
+                return Weight;
             }
 
             public double RangedAccuracyCalc(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1)
