@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class MarineChar 
+    public class MarineChar : IWeight
     {
         public int Health { get; set; }
         public int MaxHealth { get; set; }
@@ -41,10 +41,6 @@ namespace ArmoredMarine
                 {"leftleg", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } },
                 {"rightleg", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } }
             } ;
-
-        
-
-
 
         public enum MainStats
         {
@@ -79,6 +75,16 @@ namespace ArmoredMarine
             this.ArmorPoints[target]["ArmorValue"] -= damage;
         }
 
+        public double GetWeight()
+        {
+            double totalWeight = 0;
+            List<double> sum = new List<double>();
+            foreach (var part in ArmorPoints)
+            {
+                totalWeight += part.Value["ArmorValue"] / 0.5;
+            }
+            return totalWeight;
+        }
     }
 }
 
