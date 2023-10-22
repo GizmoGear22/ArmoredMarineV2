@@ -66,6 +66,7 @@
     <Compile Include="MainProgram.cs" />
     <Compile Include="MarineManager.cs" />
     <Compile Include="PlayerMarine.cs" />
+    <Compile Include="TotalWeightCalculation.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

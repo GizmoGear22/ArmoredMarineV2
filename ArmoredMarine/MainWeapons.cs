@@ -58,8 +58,9 @@ namespace ArmoredMarine
                         defender.ReduceArmor(attacker.MainWeapon.Damage, aimedTarget);
                         Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to {aimedTarget}");
                     }
-                    else if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] == 0)
+                    else if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] <= 0)
                     {
+                        defender.ArmorPoints[aimedTarget]["ArmorValue"] = 0;
                         defender.ReduceHealth(attacker.MainWeapon.Damage);
                         Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to health");
                     }

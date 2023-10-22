@@ -99,7 +99,7 @@ namespace ArmoredMarine
                     case "status":
                         foreach (var part in player.ArmorPoints)
                         {
-                            Console.WriteLine($"{part.Value["ArmorValue"]}");
+                            Console.WriteLine($"{part.Key}: {part.Value["ArmorValue"]}");
                         }
                         break;
                 }

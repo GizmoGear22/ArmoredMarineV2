@@ -32,14 +32,14 @@ namespace ArmoredMarine
 
         public Dictionary<string, Dictionary<string, double>> ArmorPoints = new Dictionary<string, Dictionary<string, double>>
             {
-                {"head", new Dictionary<string, double> { { "ArmorValue", .60 }, {"AccuracyMod", 0.5 } } },
-                {"torso", new Dictionary<string, double> { { "ArmorValue", 1.30 }, {"AccuracyMod", 1 } } },
-                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 0.8 } } },
-                {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 0.8 } } },
-                {"leftarm", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } },
-                {"rightarm", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } },
-                {"leftleg", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } },
-                {"rightleg", new Dictionary < string, double > { { "ArmorValue", .100 }, { "AccuracyMod", 0.6 } } }
+                {"head", new Dictionary<string, double> { { "ArmorValue", .60 }, {"AccuracyMod", 0.6 } } },
+                {"torso", new Dictionary<string, double> { { "ArmorValue", 1.30 }, {"AccuracyMod", 1.2 } } },
+                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 1 } } },
+                {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 1 } } },
+                {"leftarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } },
+                {"rightarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } },
+                {"leftleg", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } },
+                {"rightleg", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } }
             } ;
 
         public enum MainStats
@@ -78,7 +78,6 @@ namespace ArmoredMarine
         public double GetWeight()
         {
             double totalWeight = 0;
-            List<double> sum = new List<double>();
             foreach (var part in ArmorPoints)
             {
                 totalWeight += part.Value["ArmorValue"] / 0.5;
