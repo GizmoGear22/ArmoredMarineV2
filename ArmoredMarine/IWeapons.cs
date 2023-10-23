@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public interface IWeapons
+    public interface IWeapons : IWeight
     {
         string Name { get; }
         double Accuracy { get; }

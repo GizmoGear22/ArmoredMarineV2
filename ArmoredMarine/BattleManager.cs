@@ -29,6 +29,8 @@ namespace ArmoredMarine
 
             computerPlayer.InsertMainWeapon(new MainWeapons.BoltRifle());
 
+            computerPlayer.TotalWeight();
+
             FieldManager fieldManager = new FieldManager(50, 50);
             
 

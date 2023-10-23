@@ -25,9 +25,9 @@ namespace ArmoredMarine
         public int MaxPoints { get; set; }
         public int Credits { get; set; }
         public int Actions { get; set; } = 2;
-        public IWeapons MainWeapon { get; set; }
-        public IWeapons SideWeapon { get; set; }
-        public IWeapons MeleeWeapon { get; set; }
+        public IWeapons MainWeapon { get; set; } = null;
+        public IWeapons SideWeapon { get; set; } = null;
+        public IWeapons MeleeWeapon { get; set; } = null;
 
 
         public Dictionary<string, Dictionary<string, double>> ArmorPoints = new Dictionary<string, Dictionary<string, double>>
@@ -75,15 +75,39 @@ namespace ArmoredMarine
             this.ArmorPoints[target]["ArmorValue"] -= damage;
         }
 
-        public double GetWeight()
+        public double ArmorWeight()
         {
-            double totalWeight = 0;
+            double armorWeight = 0;
             foreach (var part in ArmorPoints)
             {
-                totalWeight += part.Value["ArmorValue"] / 0.5;
+                armorWeight += part.Value["ArmorValue"] / 0.5;
             }
-            return totalWeight;
+            return armorWeight; 
         }
+
+        public double GetWeight()
+        {
+            return Weight;
+        }
+
+        //Temporary Weight Calculation until I learn how to do it via interfaces. I know so little *cry*
+        public void TotalWeight()
+        {
+            double _totalWeight = 0;
+            _totalWeight += ArmorWeight();
+            if (MainWeapon != null)
+            {
+                _totalWeight += MainWeapon.Weight;
+            } else if (SideWeapon != null)
+            {
+                _totalWeight += SideWeapon.Weight;
+            } else if (MeleeWeapon != null)
+            {
+                _totalWeight += MeleeWeapon.Weight;
+            }
+                Weight = _totalWeight;
+        }
+
     }
 }
 

@@ -6,22 +6,15 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class TotalWeightEngine
-    {
-        List<IWeight> _separateWeights = new List<IWeight>();
 
-        public TotalWeightEngine(IEnumerable<IWeight> separateWeights)
-        {
-            _separateWeights.AddRange(separateWeights);
-        }
-    }
 
     public class WeightCalculator
     {
-        public void CalculateTotal(MarineChar character)
+        List<IWeight> _weightList = new List<IWeight>();  
+        public WeightCalculator(IEnumerable<IWeight>separateWeights) 
         {
-            var type = typeof(IWeight);
-            var weight = GetType().Assembly.GetTypes();
+            _weightList.AddRange(separateWeights);
         }
+
     }
 }
