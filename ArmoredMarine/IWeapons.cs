@@ -14,7 +14,10 @@ namespace ArmoredMarine
         int Cost { get; }
         int ShotsPerRound { get; }
         int Ammo { get; set; }
+<<<<<<< HEAD
         double Weight { get; }
+=======
+>>>>>>> master
 
         double RangedAccuracyCalc(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1);
         void DealRangedDamage(double range, MarineChar defender, MarineChar attacker, string aimedTarget);
