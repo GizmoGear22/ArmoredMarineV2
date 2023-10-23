@@ -20,7 +20,7 @@ namespace ArmoredMarine
         public int Agility { get; set; }
         public int Resilience { get; set; }
         public int Perception { get; set; }
-        public double Movement { get; set; }
+        public int Movement { get; set; }
         public double Weight { get; set; }
         public int MaxPoints { get; set; }
         public int Credits { get; set; }
@@ -80,7 +80,7 @@ namespace ArmoredMarine
             double armorWeight = 0;
             foreach (var part in ArmorPoints)
             {
-                armorWeight += part.Value["ArmorValue"] / 0.5;
+                armorWeight += part.Value["ArmorValue"] / 0.65;
             }
             return armorWeight; 
         }
@@ -106,6 +106,13 @@ namespace ArmoredMarine
                 _totalWeight += MeleeWeapon.Weight;
             }
                 Weight = _totalWeight;
+        }
+
+        public void TotalMovement()
+        {
+            var weightToMove = Weight/10;
+            var agilityToMove = Agility * 10 + 10;
+            Movement = (int)Math.Floor(agilityToMove - weightToMove);
         }
 
     }

@@ -93,7 +93,8 @@ namespace ArmoredMarine
                         player.Actions -= 1;
                         break;
                     case "move forward":
-                        fieldManager.ReducePlayerPosition();
+                        player.TotalMovement();
+                        fieldManager.ReducePlayerPosition(player);
                         Range = fieldManager.DistanceBetween();
                         Console.WriteLine($"You move forward! You are now {Range} meters from your enemy!");
                         player.Actions -= 1;
@@ -139,8 +140,8 @@ namespace ArmoredMarine
                 }
                 else if (randomAction > 50 && computerPlayer.Actions > 0)
                 {
-
-                    fieldManager.ReduceCompPosition();
+                    computerPlayer.TotalMovement();
+                    fieldManager.ReduceComputerPosition(computerPlayer);
                     Range = fieldManager.DistanceBetween();
                     Console.WriteLine($"Computer moves forward! He's now {Range} meters from you!");
                     computerPlayer.Actions -= 1;

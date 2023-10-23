@@ -85,7 +85,6 @@ namespace ArmoredMarine
             AssignStat(MarineChar.MainStats.Perception, AssignPerception);
 
             HumanPlayer.ResilienceToArmor();
-            HumanPlayer.ArmorWeight();
 
         }
 
