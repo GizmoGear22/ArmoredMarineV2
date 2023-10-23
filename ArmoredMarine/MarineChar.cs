@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class MarineChar 
+    public class MarineChar : IWeight
     {
         public int Health { get; set; }
         public int MaxHealth { get; set; }
@@ -20,28 +20,27 @@ namespace ArmoredMarine
         public int Agility { get; set; }
         public int Resilience { get; set; }
         public int Perception { get; set; }
-        public double Movement { get; set; }
+        public int Movement { get; set; }
         public double Weight { get; set; }
         public int MaxPoints { get; set; }
         public int Credits { get; set; }
         public int Actions { get; set; } = 2;
-        public IWeapons MainWeapon { get; set; }
-        public IWeapons SideWeapon { get; set; }
-        public IWeapons MeleeWeapon { get; set; }
+        public IWeapons MainWeapon { get; set; } = null;
+        public IWeapons SideWeapon { get; set; } = null;
+        public IWeapons MeleeWeapon { get; set; } = null;
 
 
         public Dictionary<string, Dictionary<string, double>> ArmorPoints = new Dictionary<string, Dictionary<string, double>>
             {
-                {"head", new Dictionary<string, double> { { "ArmorValue", 60 }, {"AccuracyMod", 0.5 } } },
-                {"torso", new Dictionary<string, double> { { "ArmorValue", 130 }, {"AccuracyMod", 1 } } },
-                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 110 }, {"AccuracyMod", 0.8 } } },
-                {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 110 }, {"AccuracyMod", 0.8 } } },
-                {"leftarm", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } },
-                {"rightarm", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } },
-                {"leftleg", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } },
-                {"rightleg", new Dictionary < string, double > { { "ArmorValue", 100 }, { "AccuracyMod", 0.6 } } }
+                {"head", new Dictionary<string, double> { { "ArmorValue", .60 }, {"AccuracyMod", 0.6 } } },
+                {"torso", new Dictionary<string, double> { { "ArmorValue", 1.30 }, {"AccuracyMod", 1.2 } } },
+                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 1 } } },
+                {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 1 } } },
+                {"leftarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } },
+                {"rightarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } },
+                {"leftleg", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } },
+                {"rightleg", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } }
             } ;
-
 
         public enum MainStats
         {
@@ -51,12 +50,20 @@ namespace ArmoredMarine
             Perception
         }
 
+        public void ResilienceToArmor()
+        {
+            foreach (var part in ArmorPoints)
+            {
+                part.Value["ArmorValue"] = Math.Floor(part.Value["ArmorValue"] * Resilience * 10);
+            }
+        }
+
         public void InsertMainWeapon(IWeapons weapon)
         {
             MainWeapon = weapon;
             
         }
-
+        public static Random RandomNum = new Random();
 
         public void ReduceHealth(int damage)
         {
@@ -66,6 +73,46 @@ namespace ArmoredMarine
         public void ReduceArmor(int damage, string target)
         {
             this.ArmorPoints[target]["ArmorValue"] -= damage;
+        }
+
+        public double ArmorWeight()
+        {
+            double armorWeight = 0;
+            foreach (var part in ArmorPoints)
+            {
+                armorWeight += part.Value["ArmorValue"] / 0.65;
+            }
+            return armorWeight; 
+        }
+
+        public double GetWeight()
+        {
+            return Weight;
+        }
+
+        //Temporary Weight Calculation until I learn how to do it via interfaces. I know so little *cry*
+        public void TotalWeight()
+        {
+            double _totalWeight = 0;
+            _totalWeight += ArmorWeight();
+            if (MainWeapon != null)
+            {
+                _totalWeight += MainWeapon.Weight;
+            } else if (SideWeapon != null)
+            {
+                _totalWeight += SideWeapon.Weight;
+            } else if (MeleeWeapon != null)
+            {
+                _totalWeight += MeleeWeapon.Weight;
+            }
+                Weight = _totalWeight;
+        }
+
+        public void TotalMovement()
+        {
+            var weightToMove = Weight/10;
+            var agilityToMove = Agility * 10 + 10;
+            Movement = (int)Math.Floor(agilityToMove - weightToMove);
         }
 
     }

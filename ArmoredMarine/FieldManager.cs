@@ -11,6 +11,7 @@ namespace ArmoredMarine
         public int PlayerPosition { get; set; }
         public int CompPosition { get; set; }
 
+
         public FieldManager(int playerPosition, int compPosition)
         {
             PlayerPosition = playerPosition;
@@ -23,6 +24,15 @@ namespace ArmoredMarine
             return Distance;
         }
 
+        public void ReducePlayerPosition(MarineChar character)
+        {
+            PlayerPosition -= character.Movement;
+        }
+
+        public void ReduceComputerPosition(MarineChar character)
+        {
+            CompPosition -= character.Movement; 
+        }
         
         
 

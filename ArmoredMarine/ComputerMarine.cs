@@ -17,14 +17,14 @@ namespace ArmoredMarine
             Health = 100;
             
         }
-
         public int[] RandomStats()
         {
+ 
             var statPointsAvailable = 30;
             int[] statStorage = new int[4];
             for (int i = 0; i < 4; i++)
             {
-                var stat = HelperFunctions.RandomNumber(10);
+                var stat = HelperFunctions.RandomNumber(10, MarineChar.RandomNum);
                 var currentStatTotal = statPointsAvailable;
                 statPointsAvailable -= stat;
                 if (statPointsAvailable <= 0)
@@ -33,7 +33,7 @@ namespace ArmoredMarine
                 }
                 statStorage[i] = stat;
             }
-            HelperFunctions.Shuffle(statStorage);
+            HelperFunctions.Shuffle(statStorage, MarineChar.RandomNum);
             return statStorage;
         }
         public void AssignIndividualComputerStats(MainStats stat, int[] StatsArray)
@@ -59,7 +59,7 @@ namespace ArmoredMarine
         public string TargetComponentPicker()
         {
             string chosenComponent = "";
-            switch(HelperFunctions.RandomNumber(7))
+            switch(HelperFunctions.RandomNumber(7,MarineChar.RandomNum))
             {
                 case 0:
                     chosenComponent = "head";

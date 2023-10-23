@@ -84,7 +84,10 @@ namespace ArmoredMarine
             string AssignPerception = Console.ReadLine();
             AssignStat(MarineChar.MainStats.Perception, AssignPerception);
 
+            HumanPlayer.ResilienceToArmor();
+
         }
+
 
         //This is a temporary method in order to implement weapons interface
         public void WeaponPicker()
@@ -108,6 +111,8 @@ namespace ArmoredMarine
 
         public bool GameInstance()
         {
+            HumanPlayer.TotalWeight();
+
             BattleManager Battle = new BattleManager();
              if (Battle.BattleInstance(HumanPlayer) == false)
             {
