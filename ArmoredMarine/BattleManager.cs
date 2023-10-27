@@ -158,6 +158,7 @@ namespace ArmoredMarine
                         Console.WriteLine("You died");
                         InstanceCheck = false;
 
+
                     }
 
             }
