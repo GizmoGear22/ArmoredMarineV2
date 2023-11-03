@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class MarineChar : IWeight
+    public class MarineCharacter : IWeight
     {
         public int Health { get; set; }
         public int MaxHealth { get; set; }
@@ -20,11 +20,11 @@ namespace ArmoredMarine
         public int Agility { get; set; }
         public int Resilience { get; set; }
         public int Perception { get; set; }
-        public int Movement { get; set; }
+        public int MovementDistance { get; set; }
         public double Weight { get; set; }
         public int MaxPoints { get; set; }
         public int Credits { get; set; }
-        public int Actions { get; set; } = 2;
+        public int CombatActions { get; set; } = 2;
         public IWeapons MainWeapon { get; set; } = null;
         public IWeapons SideWeapon { get; set; } = null;
         public IWeapons MeleeWeapon { get; set; } = null;
@@ -32,14 +32,14 @@ namespace ArmoredMarine
 
         public Dictionary<string, Dictionary<string, double>> ArmorPoints = new Dictionary<string, Dictionary<string, double>>
             {
-                {"head", new Dictionary<string, double> { { "ArmorValue", .60 }, {"AccuracyMod", 0.6 } } },
-                {"torso", new Dictionary<string, double> { { "ArmorValue", 1.30 }, {"AccuracyMod", 1.2 } } },
-                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 1 } } },
-                {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyMod", 1 } } },
-                {"leftarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } },
-                {"rightarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } },
-                {"leftleg", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } },
-                {"rightleg", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyMod", 0.8 } } }
+                {"head", new Dictionary<string, double> { { "ArmorValue", .60 }, {"AccuracyModifier", 0.6 } } },
+                {"torso", new Dictionary<string, double> { { "ArmorValue", 1.30 }, {"AccuracyModifier", 1.2 } } },
+                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyModifier    ", 1 } } },
+                {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyModifier", 1 } } },
+                {"leftarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyModifier", 0.8 } } },
+                {"rightarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyModifier", 0.8 } } },
+                {"leftleg", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyModifier", 0.8 } } },
+                {"rightleg", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyModifier", 0.8 } } }
             } ;
 
         public enum MainStats
@@ -108,11 +108,11 @@ namespace ArmoredMarine
                 Weight = _totalWeight;
         }
 
-        public void TotalMovement()
+        public void PossibleMovementDistance()
         {
             var weightToMove = Weight/10;
             var agilityToMove = Agility * 10 + 10;
-            Movement = (int)Math.Floor(agilityToMove - weightToMove);
+            MovementDistance = (int)Math.Floor(agilityToMove - weightToMove);
         }
 
     }

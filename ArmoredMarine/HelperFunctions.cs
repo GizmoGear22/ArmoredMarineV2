@@ -26,20 +26,9 @@ namespace ArmoredMarine
                 (array[i], array[r]) = (array[r], array[i]);
             }
         }
-        public static bool GoFirst(Random random)
-        {
 
-            int value = random.Next(100);
-            bool First;
-            if (value <= 50) { First = true; } else { First = false; }
-            return First;
-        }
 
-        public static double RangeToAimAdjustment(double range)
-        {
-            double RangeAimAdjust = (range + 30) / (2 * range);
-            return RangeAimAdjust;
-        }
+
    
     }
 

@@ -18,20 +18,20 @@ namespace ArmoredMarine
             CompPosition = compPosition;
         }
 
-        public int DistanceBetween()
+        public int DistanceBetweenCharacters()
         {
             int Distance = PlayerPosition + CompPosition;
             return Distance;
         }
 
-        public void ReducePlayerPosition(MarineChar character)
+        public void ChangePlayerPosition(MarineCharacter character)
         {
-            PlayerPosition -= character.Movement;
+            PlayerPosition -= character.MovementDistance;
         }
 
-        public void ReduceComputerPosition(MarineChar character)
+        public void ChangeComputerPosition(MarineCharacter character)
         {
-            CompPosition -= character.Movement; 
+            CompPosition -= character.MovementDistance; 
         }
         
         

@@ -40,49 +40,49 @@ namespace ArmoredMarine
 
             void AssignStat(PlayerMarine.MainStats Stat, string Points)
             {
-                var UserInputValue = StatCheck(Points, AvailablePoints);
+                var PlayerStatInputValue = StatCheck(Points, AvailablePoints);
 
                 switch (Stat)
                 {
-                    case MarineChar.MainStats.Strength:
-                        HumanPlayer.Strength += UserInputValue;
+                    case MarineCharacter.MainStats.Strength:
+                        HumanPlayer.Strength += PlayerStatInputValue;
                         break;
-                    case MarineChar.MainStats.Agility:
-                        HumanPlayer.Agility += UserInputValue;
+                    case MarineCharacter.MainStats.Agility:
+                        HumanPlayer.Agility += PlayerStatInputValue;
                         break;
-                    case MarineChar.MainStats.Resilience:
-                        HumanPlayer.Resilience += UserInputValue;
+                    case MarineCharacter.MainStats.Resilience:
+                        HumanPlayer.Resilience += PlayerStatInputValue;
                         break;
-                    case MarineChar.MainStats.Perception:
-                        HumanPlayer.Perception += UserInputValue;
+                    case MarineCharacter.MainStats.Perception:
+                        HumanPlayer.Perception += PlayerStatInputValue;
                         break;
 
                     default:
                         break;
                 }
 
-                AvailablePoints -= UserInputValue;
+                AvailablePoints -= PlayerStatInputValue;
                 Console.WriteLine($"You have {AvailablePoints} left");
             }
 
             Console.WriteLine("Strength: ");
             string AssignStrength = Console.ReadLine();
-            AssignStat(MarineChar.MainStats.Strength, AssignStrength);
+            AssignStat(MarineCharacter.MainStats.Strength, AssignStrength);
 
 
             Console.WriteLine("Agility: ");
             string AssignAgility = Console.ReadLine();
-            AssignStat(MarineChar.MainStats.Agility, AssignAgility);
+            AssignStat(MarineCharacter.MainStats.Agility, AssignAgility);
 
 
             Console.WriteLine("Resilience: ");
             string AssignResilience = Console.ReadLine();
-            AssignStat(MarineChar.MainStats.Resilience, AssignResilience);
+            AssignStat(MarineCharacter.MainStats.Resilience, AssignResilience);
 
 
             Console.WriteLine("Perception: ");
             string AssignPerception = Console.ReadLine();
-            AssignStat(MarineChar.MainStats.Perception, AssignPerception);
+            AssignStat(MarineCharacter.MainStats.Perception, AssignPerception);
 
             HumanPlayer.ResilienceToArmor();
 

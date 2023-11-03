@@ -62,7 +62,7 @@
     <Compile Include="MainWeapons.cs" />
     <Compile Include="IMarine.cs" />
     <Compile Include="InterfaceManager.cs" />
-    <Compile Include="MarineChar.cs" />
+    <Compile Include="MarineCharacter.cs" />
     <Compile Include="MainProgram.cs" />
     <Compile Include="MarineManager.cs" />
     <Compile Include="PlayerMarine.cs" />

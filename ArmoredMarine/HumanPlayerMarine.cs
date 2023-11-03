@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class PlayerMarine : MarineChar
+    public class PlayerMarine : MarineCharacter
     {
         public PlayerMarine()
         {

@@ -26,6 +26,19 @@ namespace ArmoredMarine
             MeltaGun
         }
 
+        public double AccuracyCalculation(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1)
+        {
+            var PerceptionBonus = (2 * Perception) / (2 * Perception + 5);
+            var Aim = PerceptionBonus * Weapon * Upgrade * Range * ArmorTarget;
+            return Aim;
+        }
+
+        public static double RangeToAimPercentage(double range)
+        {
+            double RangeAimAdjust = (range + 30) / (2 * range);
+            return RangeAimAdjust;
+        }
+
         public class BoltRifle : MainWeapons, IWeapons, IWeight
         {
 
@@ -39,28 +52,22 @@ namespace ArmoredMarine
                 ShotsPerRound = 10;
                 Weight = 10;
             }
-            public double RangedAccuracyCalc(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1)
+            public void DealRangedDamage(double range, MarineCharacter defender, MarineCharacter attacker, string ArmorPartTarget)
             {
-                var PerceptionBonus = Math.Log(Perception+1, 12);
-                var Aim = PerceptionBonus * Weapon * Upgrade * Range * ArmorTarget;
-                return Aim;
-            }
-            public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker, string aimedTarget)
-            {
-                double PercentRange = HelperFunctions.RangeToAimAdjustment(range);
+                double PercentRange = RangeToAimPercentage(range);
                 for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
                 {
-                    double ShotChance = RangedAccuracyCalc(attacker.Perception, PercentRange, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
-                    var Randomness = HelperFunctions.RandomNumber(100, MarineChar.RandomNum);
+                    double ShotHitChance = AccuracyCalculation(attacker.Perception, PercentRange, defender.ArmorPoints[ArmorPartTarget]["AccuracyModifier"], attacker.MainWeapon.Accuracy) * 100;
+                    var Randomness = HelperFunctions.RandomNumber(100, MarineCharacter.RandomNum);
                     Console.WriteLine(Randomness.ToString());
-                    if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
+                    if (Randomness < ShotHitChance && defender.ArmorPoints[ArmorPartTarget]["ArmorValue"] > 0)
                     {
-                        defender.ReduceArmor(attacker.MainWeapon.Damage, aimedTarget);
-                        Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to {aimedTarget}");
+                        defender.ReduceArmor(attacker.MainWeapon.Damage, ArmorPartTarget);
+                        Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to {ArmorPartTarget}");
                     }
-                    else if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] <= 0)
+                    else if (Randomness < ShotHitChance && defender.ArmorPoints[ArmorPartTarget]["ArmorValue"] <= 0)
                     {
-                        defender.ArmorPoints[aimedTarget]["ArmorValue"] = 0;
+                        defender.ArmorPoints[ArmorPartTarget]["ArmorValue"] = 0;
                         defender.ReduceHealth(attacker.MainWeapon.Damage);
                         Console.WriteLine($"Dealt {attacker.MainWeapon.Damage} damage to health");
                     }
@@ -91,13 +98,13 @@ namespace ArmoredMarine
                 Weight = 20;
             }
 
-            public void DealRangedDamage(double range, MarineChar defender, MarineChar attacker, string aimedTarget)
+            public void DealRangedDamage(double range, MarineCharacter defender, MarineCharacter attacker, string aimedTarget)
             {
                 int counter = 0;
                 for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
                 {
-                    double ShotChance = RangedAccuracyCalc(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
-                    var Randomness = HelperFunctions.RandomNumber(100, MarineChar.RandomNum);
+                    double ShotChance = AccuracyCalculation(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyModifier"], attacker.MainWeapon.Accuracy) * 100;
+                    var Randomness = HelperFunctions.RandomNumber(100, MarineCharacter.RandomNum);
                     Console.WriteLine(Randomness.ToString());
                     if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
                     {
@@ -125,8 +132,8 @@ namespace ArmoredMarine
                 {
                     for (int i = 0; i<=counter; i++)
                     {
-                        double ShotChance = RangedAccuracyCalc(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyMod"], attacker.MainWeapon.Accuracy) * 100;
-                        var Randomness = HelperFunctions.RandomNumber(100, MarineChar.RandomNum);
+                        double ShotChance = AccuracyCalculation(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyModifier"], attacker.MainWeapon.Accuracy) * 100;
+                        var Randomness = HelperFunctions.RandomNumber(100, MarineCharacter.RandomNum);
                         Console.WriteLine(Randomness.ToString());
                         if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
                         {
@@ -156,12 +163,7 @@ namespace ArmoredMarine
                 return Weight;
             }
 
-            public double RangedAccuracyCalc(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1)
-            {
-                var PerceptionBonus = (2 * Perception) / (2 * Perception + 5);
-                var Aim = PerceptionBonus * Weapon * Upgrade * Range * ArmorTarget;
-                return Aim;
-            }
+
 
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class ComputerMarine : MarineChar
+    public class ComputerMarine : MarineCharacter
     {
         public ComputerMarine()
         {
@@ -24,7 +24,7 @@ namespace ArmoredMarine
             int[] statStorage = new int[4];
             for (int i = 0; i < 4; i++)
             {
-                var stat = HelperFunctions.RandomNumber(10, MarineChar.RandomNum);
+                var stat = HelperFunctions.RandomNumber(10, MarineCharacter.RandomNum);
                 var currentStatTotal = statPointsAvailable;
                 statPointsAvailable -= stat;
                 if (statPointsAvailable <= 0)
@@ -33,7 +33,7 @@ namespace ArmoredMarine
                 }
                 statStorage[i] = stat;
             }
-            HelperFunctions.Shuffle(statStorage, MarineChar.RandomNum);
+            HelperFunctions.Shuffle(statStorage, MarineCharacter.RandomNum);
             return statStorage;
         }
         public void AssignIndividualComputerStats(MainStats stat, int[] StatsArray)
@@ -59,7 +59,7 @@ namespace ArmoredMarine
         public string TargetComponentPicker()
         {
             string chosenComponent = "";
-            switch(HelperFunctions.RandomNumber(7,MarineChar.RandomNum))
+            switch(HelperFunctions.RandomNumber(7,MarineCharacter.RandomNum))
             {
                 case 0:
                     chosenComponent = "head";
