@@ -20,17 +20,17 @@ namespace ArmoredMarine
             if (value <= 50) { First = true; } else { First = false; }
             return First;
         }
-        public bool BattleInstance(PlayerMarine humanPlayer)
+        public bool BattleInstance(HumanPlayerMarine humanPlayer)
         {
             Random random = new Random();
             bool InstanceCheck = true;
 
             ComputerMarine computerPlayer = new ComputerMarine();
             var ComputerStatArray = computerPlayer.RandomStats();
-            computerPlayer.AssignIndividualComputerStats(MarineCharacter.MainStats.Strength, ComputerStatArray);
-            computerPlayer.AssignIndividualComputerStats(MarineCharacter.MainStats.Agility, ComputerStatArray);
-            computerPlayer.AssignIndividualComputerStats(MarineCharacter.MainStats.Resilience, ComputerStatArray);
-            computerPlayer.AssignIndividualComputerStats(MarineCharacter.MainStats.Perception, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineCharacterManager.MainStats.Strength, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineCharacterManager.MainStats.Agility, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineCharacterManager.MainStats.Resilience, ComputerStatArray);
+            computerPlayer.AssignIndividualComputerStats(MarineCharacterManager.MainStats.Perception, ComputerStatArray);
 
             computerPlayer.ResilienceToArmor();
 
@@ -41,7 +41,7 @@ namespace ArmoredMarine
             FieldManager fieldManager = new FieldManager(50, 50);
             
 
-            var goFirst = GoFirst(MarineCharacter.RandomNum);
+            var goFirst = GoFirst(MarineCharacterManager.RandomNum);
             if (goFirst == true)
             {
                 Console.WriteLine("You attack first");
@@ -136,7 +136,7 @@ namespace ArmoredMarine
             {
                 Console.WriteLine("Computer Acts");
                 int Range = fieldManager.DistanceBetweenCharacters();
-                var randomAction = HelperFunctions.RandomNumber(100, MarineCharacter.RandomNum);
+                var randomAction = HelperFunctions.RandomNumber(100, MarineCharacterManager.RandomNum);
                 if (randomAction < 50 && computerPlayer.CombatActions > 0)
                 {
                     Console.WriteLine("Computer fires!");

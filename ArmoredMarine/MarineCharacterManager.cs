@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class MarineCharacter : IWeight
+    public class MarineCharacterManager : IWeight
     {
         public int Health { get; set; }
         public int MaxHealth { get; set; }

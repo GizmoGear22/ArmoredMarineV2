@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ArmoredMarine
 {
-    public class PlayerMarine : MarineCharacter
+    public class HumanPlayerMarine : MarineCharacterManager
     {
-        public PlayerMarine()
+        public HumanPlayerMarine()
         {
             Strength = 1;
             Agility = 1;

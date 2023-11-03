@@ -17,7 +17,7 @@ namespace ArmoredMarine
         double Weight { get; }
 
         double AccuracyCalculation(double Perception, double Range, double ArmorTarget, double Weapon = 1, double Upgrade = 1);
-        void DealRangedDamage(double range, MarineCharacter defender, MarineCharacter attacker, string aimedTarget);
+        void DealRangedDamage(double range, MarineCharacterManager defender, MarineCharacterManager attacker, string aimedTarget);
 
 
 

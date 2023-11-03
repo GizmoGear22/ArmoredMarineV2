@@ -9,7 +9,7 @@ namespace ArmoredMarine
         static void Main(string[] args)
         {
 
-            InterfaceManager interfaceManager = new InterfaceManager(new PlayerMarine());
+            InterfaceManager interfaceManager = new InterfaceManager(new HumanPlayerMarine());
 
             interfaceManager.CharStatScreen();
 

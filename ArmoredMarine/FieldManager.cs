@@ -24,12 +24,12 @@ namespace ArmoredMarine
             return Distance;
         }
 
-        public void ChangePlayerPosition(MarineCharacter character)
+        public void ChangePlayerPosition(MarineCharacterManager character)
         {
             PlayerPosition -= character.MovementDistance;
         }
 
-        public void ChangeComputerPosition(MarineCharacter character)
+        public void ChangeComputerPosition(MarineCharacterManager character)
         {
             CompPosition -= character.MovementDistance; 
         }

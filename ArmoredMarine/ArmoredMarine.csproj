@@ -58,14 +58,12 @@
     <Compile Include="HelperFunctions.cs" />
     <Compile Include="IWeight.cs" />
     <Compile Include="IWeapons.cs" />
-    <Compile Include="MarineStats.cs" />
     <Compile Include="MainWeapons.cs" />
     <Compile Include="IMarine.cs" />
     <Compile Include="InterfaceManager.cs" />
-    <Compile Include="MarineCharacter.cs" />
+    <Compile Include="MarineCharacterManager.cs" />
     <Compile Include="MainProgram.cs" />
-    <Compile Include="MarineManager.cs" />
-    <Compile Include="PlayerMarine.cs" />
+    <Compile Include="HumanPlayerMarine.cs" />
     <Compile Include="TotalWeightCalculation.cs" />
   </ItemGroup>
   <ItemGroup>
