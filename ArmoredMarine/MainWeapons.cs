@@ -58,7 +58,7 @@ namespace ArmoredMarine
                 for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
                 {
                     double ShotHitChance = AccuracyCalculation(attacker.Perception, PercentRange, defender.ArmorPoints[ArmorPartTarget]["AccuracyModifier"], attacker.MainWeapon.Accuracy) * 100;
-                    var Randomness = HelperFunctions.RandomNumber(100, MarineCharacterManager.RandomNum);
+                    var Randomness = HelperFunctions.RandomNumber(100, MarineCharacterManager.RandomNunberSeed);
                     Console.WriteLine(Randomness.ToString());
                     if (Randomness < ShotHitChance && defender.ArmorPoints[ArmorPartTarget]["ArmorValue"] > 0)
                     {
@@ -104,7 +104,7 @@ namespace ArmoredMarine
                 for (int i = 0; i < attacker.MainWeapon.ShotsPerRound; i++)
                 {
                     double ShotChance = AccuracyCalculation(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyModifier"], attacker.MainWeapon.Accuracy) * 100;
-                    var Randomness = HelperFunctions.RandomNumber(100, MarineCharacterManager.RandomNum);
+                    var Randomness = HelperFunctions.RandomNumber(100, MarineCharacterManager.RandomNunberSeed);
                     Console.WriteLine(Randomness.ToString());
                     if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
                     {
@@ -133,7 +133,7 @@ namespace ArmoredMarine
                     for (int i = 0; i<=counter; i++)
                     {
                         double ShotChance = AccuracyCalculation(attacker.Perception, range, defender.ArmorPoints[aimedTarget]["AccuracyModifier"], attacker.MainWeapon.Accuracy) * 100;
-                        var Randomness = HelperFunctions.RandomNumber(100, MarineCharacterManager.RandomNum);
+                        var Randomness = HelperFunctions.RandomNumber(100, MarineCharacterManager.RandomNunberSeed);
                         Console.WriteLine(Randomness.ToString());
                         if (Randomness < ShotChance && defender.ArmorPoints[aimedTarget]["ArmorValue"] > 0)
                         {

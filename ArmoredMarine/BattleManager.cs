@@ -41,7 +41,7 @@ namespace ArmoredMarine
             FieldManager fieldManager = new FieldManager(50, 50);
             
 
-            var goFirst = GoFirst(MarineCharacterManager.RandomNum);
+            var goFirst = GoFirst(MarineCharacterManager.RandomNunberSeed);
             if (goFirst == true)
             {
                 Console.WriteLine("You attack first");
@@ -136,7 +136,7 @@ namespace ArmoredMarine
             {
                 Console.WriteLine("Computer Acts");
                 int Range = fieldManager.DistanceBetweenCharacters();
-                var randomAction = HelperFunctions.RandomNumber(100, MarineCharacterManager.RandomNum);
+                var randomAction = HelperFunctions.RandomNumber(100, MarineCharacterManager.RandomNunberSeed);
                 if (randomAction < 50 && computerPlayer.CombatActions > 0)
                 {
                     Console.WriteLine("Computer fires!");

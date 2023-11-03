@@ -50,6 +50,8 @@ namespace ArmoredMarine
             Perception
         }
 
+        public static Random RandomNunberSeed = new Random();
+
         public void ResilienceToArmor()
         {
             foreach (var part in ArmorPoints)
@@ -63,7 +65,7 @@ namespace ArmoredMarine
             MainWeapon = weapon;
             
         }
-        public static Random RandomNum = new Random();
+
 
         public void ReduceHealth(int damage)
         {
