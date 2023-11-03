@@ -2,7 +2,6 @@ C:\Users\13134\source\repos\ArmoredMarine\ArmoredMarine\bin\Debug\ArmoredMarine.
 C:\Users\13134\source\repos\ArmoredMarine\ArmoredMarine\bin\Debug\ArmoredMarine.exe
 C:\Users\13134\source\repos\ArmoredMarine\ArmoredMarine\bin\Debug\ArmoredMarine.pdb
 C:\Users\13134\source\repos\ArmoredMarine\ArmoredMarine\obj\Debug\ArmoredMarine.csproj.AssemblyReference.cache
-C:\Users\13134\source\repos\ArmoredMarine\ArmoredMarine\obj\Debug\ArmoredMarine.csproj.SuggestedBindingRedirects.cache
 C:\Users\13134\source\repos\ArmoredMarine\ArmoredMarine\obj\Debug\ArmoredMarine.csproj.CoreCompileInputs.cache
 C:\Users\13134\source\repos\ArmoredMarine\ArmoredMarine\obj\Debug\ArmoredMarine.exe
 C:\Users\13134\source\repos\ArmoredMarine\ArmoredMarine\obj\Debug\ArmoredMarine.pdb

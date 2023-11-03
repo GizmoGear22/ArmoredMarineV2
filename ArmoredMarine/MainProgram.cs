@@ -16,6 +16,8 @@ namespace ArmoredMarine
             interfaceManager.WeaponPicker();
 
             interfaceManager.GameInstance();
+
+            Console.ReadLine();
         }
     }
 }

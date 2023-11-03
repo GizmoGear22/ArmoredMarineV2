@@ -34,7 +34,7 @@ namespace ArmoredMarine
             {
                 {"head", new Dictionary<string, double> { { "ArmorValue", .60 }, {"AccuracyModifier", 0.6 } } },
                 {"torso", new Dictionary<string, double> { { "ArmorValue", 1.30 }, {"AccuracyModifier", 1.2 } } },
-                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyModifier    ", 1 } } },
+                {"leftpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyModifier", 1 } } },
                 {"rightpauldron", new Dictionary<string, double> { { "ArmorValue", 1.10 }, {"AccuracyModifier", 1 } } },
                 {"leftarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyModifier", 0.8 } } },
                 {"rightarm", new Dictionary < string, double > { { "ArmorValue", .800 }, { "AccuracyModifier", 0.8 } } },
@@ -112,7 +112,7 @@ namespace ArmoredMarine
 
         public void PossibleMovementDistance()
         {
-            var weightToMove = Weight/10;
+            var weightToMove = Weight/11;
             var agilityToMove = Agility * 10 + 10;
             MovementDistance = (int)Math.Floor(agilityToMove - weightToMove);
         }
